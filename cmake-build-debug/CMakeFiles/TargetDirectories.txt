@@ -1,0 +1,3 @@
+C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/pacman/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/pacman/cmake-build-debug/CMakeFiles/pacman.dir
+C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/pacman/cmake-build-debug/CMakeFiles/edit_cache.dir
