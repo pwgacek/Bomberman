@@ -1,4 +1,10 @@
 # ninja log v5
-2	306	6690736681344373	CMakeFiles/pacman.dir/main.cpp.obj	5edce77edf91a708
-306	417	6690736682448067	pacman.exe	695aab4361a701d5
-2	174	6690737809772334	build.ninja	558b0eebd380d75d
+1	367	6695707499948313	build.ninja	558b0eebd380d75d
+4	763	6695698025144191	CMakeFiles/bomberman.dir/src/main.cpp.obj	1bf906b3f1dc9c43
+335	441	6695706207240551	bomberman.exe	56dfe98cfe3b7aa5
+3	335	6695706206206392	CMakeFiles/bomberman.dir/src/map.cpp.obj	abdb11990936a32c
+14	818	6695698025630461	CMakeFiles/bomberman.dir/src/engine.cpp.obj	cf40d3cdca45765a
+16	340	6695592492895049	CMakeFiles/bomberman.dir/src/mapitem.cpp.obj	dbd8603d49c8a7e
+3	299	6695673118886792	CMakeFiles/bomberman.dir/src/wall.cpp.obj	4b558a1e4ddb218a
+2	330	6695707934213975	CMakeFiles/bomberman.dir/src/map.cpp.obj	abdb11990936a32c
+331	454	6695707935449471	bomberman.exe	56dfe98cfe3b7aa5

@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: pacman
+# Project: bomberman
 # Configurations: Debug
 # =============================================================================
 
@@ -39,13 +39,86 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/pacman/cmake-build-debug/
+cmake_ninja_workdir = C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target bomberman
+
+
+#############################################
+# Order-only phony target for bomberman
+
+build cmake_object_order_depends_target_bomberman: phony || CMakeFiles/bomberman.dir
+
+build CMakeFiles/bomberman.dir/src/main.cpp.obj: CXX_COMPILER__bomberman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/src/main.cpp || cmake_object_order_depends_target_bomberman
+  DEP_FILE = CMakeFiles\bomberman.dir\src\main.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/headers" -I/usr/include -Ic:/SFML/include -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src
+
+build CMakeFiles/bomberman.dir/src/engine.cpp.obj: CXX_COMPILER__bomberman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/src/engine.cpp || cmake_object_order_depends_target_bomberman
+  DEP_FILE = CMakeFiles\bomberman.dir\src\engine.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/headers" -I/usr/include -Ic:/SFML/include -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src
+
+build CMakeFiles/bomberman.dir/src/mapitem.cpp.obj: CXX_COMPILER__bomberman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/src/mapitem.cpp || cmake_object_order_depends_target_bomberman
+  DEP_FILE = CMakeFiles\bomberman.dir\src\mapitem.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/headers" -I/usr/include -Ic:/SFML/include -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src
+
+build CMakeFiles/bomberman.dir/src/wall.cpp.obj: CXX_COMPILER__bomberman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/src/wall.cpp || cmake_object_order_depends_target_bomberman
+  DEP_FILE = CMakeFiles\bomberman.dir\src\wall.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/headers" -I/usr/include -Ic:/SFML/include -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src
+
+build CMakeFiles/bomberman.dir/src/map.cpp.obj: CXX_COMPILER__bomberman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/src/map.cpp || cmake_object_order_depends_target_bomberman
+  DEP_FILE = CMakeFiles\bomberman.dir\src\map.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/headers" -I/usr/include -Ic:/SFML/include -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target bomberman
+
+
+#############################################
+# Link the executable bomberman.exe
+
+build bomberman.exe: CXX_EXECUTABLE_LINKER__bomberman_Debug CMakeFiles/bomberman.dir/src/main.cpp.obj CMakeFiles/bomberman.dir/src/engine.cpp.obj CMakeFiles/bomberman.dir/src/mapitem.cpp.obj CMakeFiles/bomberman.dir/src/wall.cpp.obj CMakeFiles/bomberman.dir/src/map.cpp.obj | C$:/SFML/lib/libsfml-system-d.a C$:/SFML/lib/libsfml-window-d.a C$:/SFML/lib/libsfml-graphics-d.a C$:/SFML/lib/libsfml-network-d.a C$:/SFML/lib/libsfml-audio-d.a
+  FLAGS = -g
+  LINK_LIBRARIES = C:/SFML/lib/libsfml-system-d.a  C:/SFML/lib/libsfml-window-d.a  C:/SFML/lib/libsfml-graphics-d.a  C:/SFML/lib/libsfml-network-d.a  C:/SFML/lib/libsfml-audio-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = bomberman.exe
+  TARGET_IMPLIB = libbomberman.dll.a
+  TARGET_PDB = bomberman.exe.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cmd.exe /C "cd /D "C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\bomberman\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
 
 #############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D "C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\pacman\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S"C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\pacman" -B"C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\pacman\cmake-build-debug""
+  COMMAND = cmd.exe /C "cd /D "C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\bomberman\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S"C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\bomberman" -B"C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\bomberman\cmake-build-debug""
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -53,54 +126,9 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 # =============================================================================
-# Object build statements for EXECUTABLE target pacman
-
-
-#############################################
-# Order-only phony target for pacman
-
-build cmake_object_order_depends_target_pacman: phony || CMakeFiles/pacman.dir
-
-build CMakeFiles/pacman.dir/src/main.cpp.obj: CXX_COMPILER__pacman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/pacman/src/main.cpp || cmake_object_order_depends_target_pacman
-  DEP_FILE = CMakeFiles\pacman.dir\src\main.cpp.obj.d
-  FLAGS = -g -std=gnu++1z
-  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/pacman/headers" -IC:/SFML/include
-  OBJECT_DIR = CMakeFiles\pacman.dir
-  OBJECT_FILE_DIR = CMakeFiles\pacman.dir\src
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target pacman
-
-
-#############################################
-# Link the executable pacman.exe
-
-build pacman.exe: CXX_EXECUTABLE_LINKER__pacman_Debug CMakeFiles/pacman.dir/src/main.cpp.obj | C$:/SFML/lib/libsfml-system-d.a C$:/SFML/lib/libsfml-window-d.a C$:/SFML/lib/libsfml-graphics-d.a
-  FLAGS = -g
-  LINK_LIBRARIES = C:/SFML/lib/libsfml-system-d.a  C:/SFML/lib/libsfml-window-d.a  C:/SFML/lib/libsfml-graphics-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\pacman.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_FILE = pacman.exe
-  TARGET_IMPLIB = libpacman.dll.a
-  TARGET_PDB = pacman.exe.dbg
-
-
-#############################################
-# Utility command for edit_cache
-
-build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D "C:\Users\pawel\OneDrive\Pulpit\IV semestr\C++\pacman\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
-  DESC = No interactive CMake dialog available...
-  restat = 1
-
-build edit_cache: phony CMakeFiles/edit_cache.util
-
-# =============================================================================
 # Target aliases.
 
-build pacman: phony pacman.exe
+build bomberman: phony bomberman.exe
 
 # =============================================================================
 # Folder targets.
@@ -108,9 +136,9 @@ build pacman: phony pacman.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/pacman/cmake-build-debug
+# Folder: C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/cmake-build-debug
 
-build all: phony pacman.exe
+build all: phony bomberman.exe
 
 # =============================================================================
 # Built-in targets
@@ -119,14 +147,14 @@ build all: phony pacman.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../cmake_modules/findSFML.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | ../CMakeLists.txt ../cmake_modules/FindSFML.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build ../CMakeLists.txt ../cmake_modules/findSFML.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
+build ../CMakeLists.txt ../cmake_modules/FindSFML.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCXXInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeRCInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Compiler/GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX-ABI.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU-CXX.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/Windows.cmake C$:/Program$ Files/JetBrains/CLion$ 2021.3.3/bin/cmake/win/share/cmake-3.21/Modules/Platform/WindowsPaths.cmake CMakeCache.txt CMakeFiles/3.21.1/CMakeCCompiler.cmake CMakeFiles/3.21.1/CMakeCXXCompiler.cmake CMakeFiles/3.21.1/CMakeRCCompiler.cmake CMakeFiles/3.21.1/CMakeSystem.cmake: phony
 
 
 #############################################
