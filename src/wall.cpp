@@ -11,3 +11,7 @@ Wall::Wall(Vector2f& position,Texture& texture,unsigned int size){
     this->setTexture(texture);
     this->scale((float)size/(float)texture.getSize().x,(float)size/(float)texture.getSize().y);
 }
+
+Wall::Wall() {
+    this->setPosition(-1,-1);
+}

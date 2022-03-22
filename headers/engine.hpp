@@ -11,10 +11,24 @@ class Engine {
 private:
     Vector2f resolution;
     RenderWindow window;
-    const unsigned int FPS = 10;
+    const unsigned int FPS = 60;
     static const Time TimePerFrame;
-    const Map map;
+    Map map;
+
+    bool leftFlag = false;
+    bool rightFlag = false;
+    bool upFlag = false;
+    bool downFlag = false;
+
+    float changeX=0;
+    float changeY=0;
+
+    Vector2f changedPosition;
+
 public:
+
+
+
     Engine();
     void draw();
     void run();

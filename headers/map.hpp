@@ -7,19 +7,26 @@
 
 
 #include "wall.hpp"
+#include "bomberman.hpp"
+
 
 class Map {
 public:
-    static const unsigned int WALL_QUANTITY = 200;
+    static const unsigned int WALL_QUANTITY = 92;
     static const unsigned int CELL_SIZE = 50;
     static const unsigned int MAP_SIZE = 15;
     Map();
     ~Map();
-    Wall* getWalls() const;
+    Wall* getMapElements() const;
+    Bomberman &getBomberman() const;
+    bool canMove(Bomberman&,Bomberman::Direction);
 private:
+
+    const Bomberman bomberman = Bomberman(CELL_SIZE, CELL_SIZE, CELL_SIZE);
     Texture wallTexture;
-    Wall* walls;
-    void generateWalls();
+    Wall* mapElements;
+    void generateMapElements();
+
 };
 
 
