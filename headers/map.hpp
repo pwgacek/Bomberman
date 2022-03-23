@@ -17,17 +17,20 @@ public:
     static const unsigned int WALL_QUANTITY = 92;
     static const unsigned int CELL_SIZE = 50;
     static const unsigned int MAP_SIZE = 15;
+    static const unsigned int PLAYERS_NUMBER = 2;
     Map();
     ~Map();
     MapElement* getMapElements() const;
-    Bomberman &getBomberman() const;
+    Bomberman &getBomberman(int);
     bool canMove(Bomberman&);
 private:
 
-    const Bomberman bomberman = Bomberman(CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    Bomberman *bombermans;
+
     Texture wallTexture;
     MapElement* mapElements;
     void generateMapElements();
+
 
 };
 

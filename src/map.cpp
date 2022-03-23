@@ -5,14 +5,13 @@
 #include "map.hpp"
 #include "bomberman.hpp"
 #include <iostream>
-#include <cmath>
 
-Map::Map()   {
+Map::Map(){
 
+    bombermans = new Bomberman[PLAYERS_NUMBER]{Bomberman(1,CELL_SIZE,CELL_SIZE,CELL_SIZE),Bomberman(2,(MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE,CELL_SIZE)};
+
+    mapElements = new MapElement[MAP_SIZE*MAP_SIZE];
     generateMapElements();
-
-
-
 
 }
 
@@ -29,7 +28,6 @@ MapElement *Map::getMapElements() const {
 
 void Map::generateMapElements() {
 
-    mapElements = new MapElement[MAP_SIZE*MAP_SIZE];
 
     if(!wallTexture.loadFromFile("assets/wall.png")){
         std::cout << "can't load image" <<std::endl;
@@ -75,27 +73,13 @@ void Map::generateMapElements() {
 
 }
 
-Bomberman &Map::getBomberman() const{
-    return const_cast<Bomberman &>(bomberman);
+Bomberman &Map::getBomberman(int id) {
+    return (bombermans[id - 1]);
 }
 
 bool Map::canMove(Bomberman &bomber) {
     int index;
-//    index = (int) (bomber.getPosition().x / CELL_SIZE) * MAP_SIZE +
-//            (int)(bomber.getPosition().y / CELL_SIZE);
-//    if(bomber.getDirection()==Bomberman::right || bomber.getDirection()==Bomberman::left){
-//        index2 = (int) (bomber.getPosition().x / CELL_SIZE) * MAP_SIZE +
-//                 (int)floor(int(bomber.getPosition().y+CELL_SIZE-1) / CELL_SIZE);
-//    }else{
-//        index2 = (int) floor(int(bomber.getPosition().x+CELL_SIZE-1)/ CELL_SIZE) * MAP_SIZE +
-//                 (int)(bomber.getPosition().y / CELL_SIZE);
-//    }
 
-    //printf("char: %c index: %d index2: %d pos: x:%f,y:%f\n",direction,index,index2,bomber.getPosition().x,bomber.getPosition().y);
-    index = (int)((int)bomber.getPosition().x/ CELL_SIZE * MAP_SIZE) + (int)((int)(bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
-    printf("lewo: %d, ",index);
-    index = (int)((int)((bomber.getPosition().x + (CELL_SIZE-1))/ CELL_SIZE) * MAP_SIZE) + (int)((int)(bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
-    printf("prawo: %d\n",index);
     switch (bomber.getDirection()) {
 
         case Bomberman::left:{
@@ -105,7 +89,6 @@ bool Map::canMove(Bomberman &bomber) {
                 if(mapElements[index-MAP_SIZE].getPosition().y != bomber.getPosition().y)
                     bomber.move(0, mapElements[index-MAP_SIZE].getPosition().y -bomber.getPosition().y);
             }
-
 
             break;
         }
@@ -143,6 +126,8 @@ bool Map::canMove(Bomberman &bomber) {
     return true;
 
 }
+
+
 
 
 

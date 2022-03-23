@@ -8,7 +8,7 @@ Engine::Engine(){
     window.create(VideoMode(resolution.x,resolution.y),"Bomber-Man",Style::Default);
     window.setFramerateLimit(FPS);
 
-    changedPosition  = map.getBomberman().getPosition();
+    changedPosition  = map.getBomberman(1).getPosition();
 }
 
 void Engine::run() {
@@ -31,36 +31,37 @@ void Engine::draw(){
 
 
 
-    if(upFlag)map.getBomberman().addDirection(Bomberman::up);
-    else map.getBomberman().removeDirection(Bomberman::up);
+    if(upFlag)map.getBomberman(1).addDirection(Bomberman::up);
+    else map.getBomberman(1).removeDirection(Bomberman::up);
 
-    if(leftFlag)map.getBomberman().addDirection(Bomberman::left);
-    else map.getBomberman().removeDirection(Bomberman::left);
+    if(leftFlag)map.getBomberman(1).addDirection(Bomberman::left);
+    else map.getBomberman(1).removeDirection(Bomberman::left);
 
-    if(rightFlag)map.getBomberman().addDirection(Bomberman::right);
-    else map.getBomberman().removeDirection(Bomberman::right);
+    if(rightFlag)map.getBomberman(1).addDirection(Bomberman::right);
+    else map.getBomberman(1).removeDirection(Bomberman::right);
 
-    if(downFlag)map.getBomberman().addDirection(Bomberman::down);
-    else map.getBomberman().removeDirection(Bomberman::down);
-
-
+    if(downFlag)map.getBomberman(1).addDirection(Bomberman::down);
+    else map.getBomberman(1).removeDirection(Bomberman::down);
 
 
-    if(leftFlag && map.getBomberman().getDirection() == Bomberman::left) if(map.canMove(map.getBomberman()))map.getBomberman().move(-4,0);
-    if(rightFlag && map.getBomberman().getDirection() == Bomberman::right) if(map.canMove(map.getBomberman()))map.getBomberman().move(4,0);
-    if(upFlag && map.getBomberman().getDirection() == Bomberman::up) if(map.canMove(map.getBomberman()))map.getBomberman().move(0,-4);
-    if(downFlag && map.getBomberman().getDirection() == Bomberman::down)if(map.canMove(map.getBomberman()))map.getBomberman().move(0,4);
+
+
+    if(leftFlag && map.getBomberman(1).getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(-4,0);
+    if(rightFlag && map.getBomberman(1).getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(4,0);
+    if(upFlag && map.getBomberman(1).getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,-4);
+    if(downFlag && map.getBomberman(1).getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,4);
 
     Time timeElapsed = changeTextureClock.getElapsedTime();
     if(timeElapsed.asSeconds() > 0.1){
         changeTextureClock.restart();
-        map.getBomberman().changeTexture();
+        map.getBomberman(1).changeTexture();
 
     }
 
 
 
-    window.draw(map.getBomberman());
+    window.draw(map.getBomberman(1));
+    window.draw(map.getBomberman(2));
     window.display();
 }
 void Engine::input(){

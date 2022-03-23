@@ -13,7 +13,9 @@ class Bomberman : public Sprite {
 public:
     static const unsigned int BOMBERMAN_HEIGHT = 24;
     static const unsigned int BOMBERMAN_WIDTH = 16;
-    static const unsigned int BOMBERMAN_SPRITES = 27;
+    static const unsigned int BOMBERMAN_SPRITES = 14;
+
+
     enum Direction{
         none,
         left,
@@ -26,13 +28,16 @@ public:
     Direction getDirection();
     void addDirection(Direction d);
     void removeDirection(Direction d);
-    Bomberman(int,int,unsigned int);
+    Bomberman(int,int,int,unsigned int);
     ~Bomberman();
     void changeTexture();
+    int getId();
+
 
 
 
 private:
+    int id;
     int textureIndex = 1;
     int earlierTextureIndex = -1;
     Texture* textureArray = nullptr;
