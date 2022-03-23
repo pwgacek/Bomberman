@@ -46,11 +46,6 @@ void Bomberman::addDirection(Bomberman::Direction d) {
         directionQueue[i] = directionQueue[i - 1];
     }
     directionQueue[0] = d;
-    printf("po dodaniu %d\n",d);
-    for(int i=0;i<4;i++){
-        printf("queue[%d] = %d\n",i,directionQueue[i]);
-    }
-    printf("\n");
 
 
 }
@@ -67,11 +62,7 @@ void Bomberman::removeDirection(Bomberman::Direction d) {
         }
 
     }
-    printf("po usunieciut %d\n",d);
-    for(int i=0;i<4;i++){
-        printf("queue[%d] = %d\n",i,directionQueue[i]);
-    }
-    printf("\n");
+
 }
 
 

@@ -6,8 +6,10 @@
 #define PACMAN_MAP_HPP
 
 
-#include "wall.hpp"
+#include "mapelement.hpp"
 #include "bomberman.hpp"
+#include "wall.hpp"
+#include "corridor.hpp"
 
 
 class Map {
@@ -17,14 +19,14 @@ public:
     static const unsigned int MAP_SIZE = 15;
     Map();
     ~Map();
-    Wall* getMapElements() const;
+    MapElement* getMapElements() const;
     Bomberman &getBomberman() const;
-    bool canMove(Bomberman&,Bomberman::Direction);
+    bool canMove(Bomberman&);
 private:
 
     const Bomberman bomberman = Bomberman(CELL_SIZE, CELL_SIZE, CELL_SIZE);
     Texture wallTexture;
-    Wall* mapElements;
+    MapElement* mapElements;
     void generateMapElements();
 
 };

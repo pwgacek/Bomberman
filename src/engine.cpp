@@ -46,10 +46,10 @@ void Engine::draw(){
 
 
 
-    if(leftFlag && map.getBomberman().getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(),map.getBomberman().getDirection()))map.getBomberman().move(-4,0);
-    if(rightFlag && map.getBomberman().getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(),map.getBomberman().getDirection()))map.getBomberman().move(4,0);
-    if(upFlag && map.getBomberman().getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(),map.getBomberman().getDirection()))map.getBomberman().move(0,-4);
-    if(downFlag && map.getBomberman().getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(),map.getBomberman().getDirection()))map.getBomberman().move(0,4);
+    if(leftFlag && map.getBomberman().getDirection() == Bomberman::left) if(map.canMove(map.getBomberman()))map.getBomberman().move(-4,0);
+    if(rightFlag && map.getBomberman().getDirection() == Bomberman::right) if(map.canMove(map.getBomberman()))map.getBomberman().move(4,0);
+    if(upFlag && map.getBomberman().getDirection() == Bomberman::up) if(map.canMove(map.getBomberman()))map.getBomberman().move(0,-4);
+    if(downFlag && map.getBomberman().getDirection() == Bomberman::down)if(map.canMove(map.getBomberman()))map.getBomberman().move(0,4);
 
     Time timeElapsed = changeTextureClock.getElapsedTime();
     if(timeElapsed.asSeconds() > 0.1){
