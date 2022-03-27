@@ -1,10 +1,11 @@
 //
 // Created by pawel on 21.03.2022.
 //
-
+#include <cstdlib>
 #include "map.hpp"
 #include "bomberman.hpp"
 #include <iostream>
+#include <ctime>
 
 Map::Map(){
 
@@ -30,6 +31,9 @@ void Map::generateMapElements() {
 
 
     if(!wallTexture.loadFromFile("assets/wall.png")){
+        std::cout << "can't load image" <<std::endl;
+    }
+    if(!chestTexture.loadFromFile("assets/chest.png")){
         std::cout << "can't load image" <<std::endl;
     }
 
@@ -61,14 +65,21 @@ void Map::generateMapElements() {
             mapElements[i*MAP_SIZE+j] = Wall(v1,wallTexture,CELL_SIZE);
         }
     }
-
+//    int r;
+//    srand((int)time(0));
     for(int i=0;i<MAP_SIZE*MAP_SIZE;i++){
         if(mapElements[i].getMapElementType() != MapElement::wall){
             Vector2f v((float)((int)(i/MAP_SIZE))*CELL_SIZE,(float)(i%MAP_SIZE) * CELL_SIZE);
+//            r = (rand() % 100) + 1;;
             mapElements[i] = Corridor(v);
+            //else mapElements[i] = Chest(v,chestTexture,CELL_SIZE);
+
         }
 
     }
+    Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
+    mapElements[MAP_SIZE+1] = Corridor(d1);
+    mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
 
 
 }
@@ -85,7 +96,7 @@ bool Map::canMove(Bomberman &bomber) {
         case Bomberman::left:{
             index = (int) ((int)(bomber.getPosition().x/ CELL_SIZE) * MAP_SIZE) + (int)((bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
             if((int)bomber.getPosition().x % CELL_SIZE == 0){
-                if(mapElements[index-MAP_SIZE].getMapElementType() == MapElement::wall)return false;
+                if(mapElements[index-MAP_SIZE].getMapElementType() == MapElement::wall || mapElements[index-MAP_SIZE].getMapElementType() == MapElement::chest)return false;
                 if(mapElements[index-MAP_SIZE].getPosition().y != bomber.getPosition().y)
                     bomber.move(0, mapElements[index-MAP_SIZE].getPosition().y -bomber.getPosition().y);
             }
@@ -95,7 +106,7 @@ bool Map::canMove(Bomberman &bomber) {
         case Bomberman::right:{
             index = (int) ((int)((bomber.getPosition().x + (CELL_SIZE-1))/ CELL_SIZE) * MAP_SIZE) + (int)((bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
             if((int)bomber.getPosition().x % CELL_SIZE == 0){
-                if(mapElements[index+MAP_SIZE].getMapElementType() == MapElement::wall)return false;
+                if(mapElements[index+MAP_SIZE].getMapElementType() == MapElement::wall || mapElements[index+MAP_SIZE].getMapElementType() == MapElement::chest)return false;
                 if(mapElements[index+MAP_SIZE].getPosition().y != bomber.getPosition().y)
                     bomber.move(0, mapElements[index+MAP_SIZE].getPosition().y -bomber.getPosition().y);
             }
@@ -105,7 +116,9 @@ bool Map::canMove(Bomberman &bomber) {
         case Bomberman::up:{
             index = (int) ((int)((bomber.getPosition().x +((float)CELL_SIZE/2)) / CELL_SIZE) * MAP_SIZE) + (int)(bomber.getPosition().y/CELL_SIZE);
             if((int)bomber.getPosition().y % CELL_SIZE == 0){
-                if(mapElements[index-1].getMapElementType() == MapElement::wall) return false;
+
+                if(mapElements[index-1].getMapElementType() == MapElement::wall|| mapElements[index-1].getMapElementType() == MapElement::chest) return false;
+
                 if(mapElements[index-1].getPosition().x != bomber.getPosition().x)
                     bomber.move(mapElements[index-1].getPosition().x-bomber.getPosition().x,0);
             }
@@ -114,7 +127,7 @@ bool Map::canMove(Bomberman &bomber) {
        case Bomberman::down:{
            index = (int) ((int)((bomber.getPosition().x +((float)CELL_SIZE/2)) / CELL_SIZE) * MAP_SIZE)  + (int)((bomber.getPosition().y + (float)(CELL_SIZE-1))/CELL_SIZE);
            if((int)bomber.getPosition().y % CELL_SIZE == 0){
-               if(mapElements[index+1].getMapElementType() == MapElement::wall) return false;
+               if(mapElements[index+1].getMapElementType() == MapElement::wall|| mapElements[index+1].getMapElementType() == MapElement::chest) return false;
                if(mapElements[index+1].getPosition().x != bomber.getPosition().x)
                    bomber.move(mapElements[index+1].getPosition().x-bomber.getPosition().x,0);
            }

@@ -10,6 +10,7 @@
 #include "bomberman.hpp"
 #include "wall.hpp"
 #include "corridor.hpp"
+#include "chest.hpp"
 
 
 class Map {
@@ -28,6 +29,7 @@ private:
     Bomberman *bombermans;
 
     Texture wallTexture;
+    Texture chestTexture;
     MapElement* mapElements;
     void generateMapElements();
 

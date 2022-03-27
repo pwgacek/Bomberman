@@ -13,7 +13,7 @@ class Bomberman : public Sprite {
 public:
     static const unsigned int BOMBERMAN_HEIGHT = 24;
     static const unsigned int BOMBERMAN_WIDTH = 16;
-    static const unsigned int BOMBERMAN_SPRITES = 14;
+    static const unsigned int BOMBERMAN_SPRITES = 18;
 
 
     enum Direction{

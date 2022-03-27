@@ -45,16 +45,35 @@ void Engine::draw(){
 
 
 
+    if(upFlag2)map.getBomberman(2).addDirection(Bomberman::up);
+    else map.getBomberman(2).removeDirection(Bomberman::up);
 
-    if(leftFlag && map.getBomberman(1).getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(-4,0);
-    if(rightFlag && map.getBomberman(1).getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(4,0);
-    if(upFlag && map.getBomberman(1).getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,-4);
-    if(downFlag && map.getBomberman(1).getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,4);
+    if(leftFlag2)map.getBomberman(2).addDirection(Bomberman::left);
+    else map.getBomberman(2).removeDirection(Bomberman::left);
+
+    if(rightFlag2)map.getBomberman(2).addDirection(Bomberman::right);
+    else map.getBomberman(2).removeDirection(Bomberman::right);
+
+    if(downFlag2)map.getBomberman(2).addDirection(Bomberman::down);
+    else map.getBomberman(2).removeDirection(Bomberman::down);
+
+
+
+    if(leftFlag && map.getBomberman(1).getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(-5,0);
+    if(rightFlag && map.getBomberman(1).getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(5,0);
+    if(upFlag && map.getBomberman(1).getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,-5);
+    if(downFlag && map.getBomberman(1).getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,5);
+
+    if(leftFlag2 && map.getBomberman(2).getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(-5,0);
+    if(rightFlag2 && map.getBomberman(2).getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(5,0);
+    if(upFlag2 && map.getBomberman(2).getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(0,-5);
+    if(downFlag2 && map.getBomberman(2).getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(0,5);
 
     Time timeElapsed = changeTextureClock.getElapsedTime();
     if(timeElapsed.asSeconds() > 0.1){
         changeTextureClock.restart();
         map.getBomberman(1).changeTexture();
+        map.getBomberman(2).changeTexture();
 
     }
 
@@ -81,6 +100,11 @@ void Engine::input(){
                 case Keyboard::D:   rightFlag=true; break;
                 case Keyboard::W:     upFlag=true;break;
                 case Keyboard::S:    downFlag=true;break;
+
+                case Keyboard::Left:    leftFlag2=true; break;
+                case Keyboard::Right:   rightFlag2=true; break;
+                case Keyboard::Up:     upFlag2=true;break;
+                case Keyboard::Down:    downFlag2=true;break;
                 default : break;
             }
         }
@@ -93,6 +117,11 @@ void Engine::input(){
                 case Keyboard::D:   rightFlag=false; break;
                 case Keyboard::W:     upFlag=false; break;
                 case Keyboard::S:    downFlag=false; break;
+
+                case Keyboard::Left:    leftFlag2=false; break;
+                case Keyboard::Right:   rightFlag2=false; break;
+                case Keyboard::Up:     upFlag2=false; break;
+                case Keyboard::Down:    downFlag2=false; break;
 
                 default : break;
             }

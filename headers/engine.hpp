@@ -11,7 +11,7 @@ class Engine {
 private:
     Vector2f resolution;
     RenderWindow window;
-    const unsigned int FPS = 60;
+    const unsigned int FPS = 45;
     static const Time TimePerFrame;
     Map map;
 
@@ -19,6 +19,11 @@ private:
     bool rightFlag = false;
     bool upFlag = false;
     bool downFlag = false;
+
+    bool leftFlag2 = false;
+    bool rightFlag2 = false;
+    bool upFlag2 = false;
+    bool downFlag2 = false;
 
     float changeX=0;
     float changeY=0;

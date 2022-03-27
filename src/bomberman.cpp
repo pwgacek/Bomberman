@@ -23,11 +23,11 @@ Bomberman::~Bomberman(){
 
 void Bomberman::fillTextureArray() {
     int q = (id-1)*3;
-    printf("q: %d id: %d\n",q,id);
+
     for(int i=0;i<BOMBERMAN_SPRITES/3;i++){
 
-        textureArray[i].loadFromFile("assets/sprites.png",IntRect(i*(int)BOMBERMAN_WIDTH,(int)BOMBERMAN_HEIGHT*(q),BOMBERMAN_WIDTH,BOMBERMAN_HEIGHT));
-        textureArray[i+9].loadFromFile("assets/sprites.png",IntRect(i*(int)BOMBERMAN_WIDTH,(int)BOMBERMAN_HEIGHT*(q+1),BOMBERMAN_WIDTH,BOMBERMAN_HEIGHT));
+        textureArray[i].loadFromFile("assets/spr.png",IntRect(i*(int)BOMBERMAN_WIDTH,(int)BOMBERMAN_HEIGHT*(q),BOMBERMAN_WIDTH,BOMBERMAN_HEIGHT));
+        textureArray[i+9].loadFromFile("assets/spr.png",IntRect(i*(int)BOMBERMAN_WIDTH,(int)BOMBERMAN_HEIGHT*(q+1),BOMBERMAN_WIDTH,BOMBERMAN_HEIGHT));
         //textureArray[i+18].loadFromFile("assets/sprites.png",IntRect(i*(int)BOMBERMAN_WIDTH,(int)BOMBERMAN_HEIGHT*(q+2),BOMBERMAN_WIDTH,BOMBERMAN_HEIGHT));
 
     }

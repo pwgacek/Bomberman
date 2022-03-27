@@ -1,12 +1,13 @@
 # ninja log v5
-1	182	6697633292760475	build.ninja	ec207530d586d5c
-2	558	6697630929720119	CMakeFiles/bomberman.dir/src/main.cpp.obj	1bf906b3f1dc9c43
-278	402	6697631271028958	bomberman.exe	1a9d2bc1462401d9
-15	487	6697630929017974	CMakeFiles/bomberman.dir/src/map.cpp.obj	abdb11990936a32c
-10	552	6697630929631155	CMakeFiles/bomberman.dir/src/engine.cpp.obj	cf40d3cdca45765a
+490	747	6697708604315414	bomberman.exe	afb9456407e03ba9
+6	462	6697669511345565	CMakeFiles/bomberman.dir/src/chest.cpp.obj	52bd6a057f089cf9
+2	452	6697697837902851	CMakeFiles/bomberman.dir/src/main.cpp.obj	1bf906b3f1dc9c43
+0	190	6698418814508432	build.ninja	ec207530d586d5c
+10	489	6697697838285136	CMakeFiles/bomberman.dir/src/engine.cpp.obj	cf40d3cdca45765a
+16	489	6697708601786444	CMakeFiles/bomberman.dir/src/map.cpp.obj	abdb11990936a32c
 16	340	6695592492895049	CMakeFiles/bomberman.dir/src/mapitem.cpp.obj	dbd8603d49c8a7e
 4	538	6697369193294029	CMakeFiles/bomberman.dir/src/wall.cpp.obj	4b558a1e4ddb218a
 3	60	6695720961848622	CMakeFiles/bomberman.dir/headers/bomberman.cpp.obj	22cb1985758f38ba
-3	277	6697631269827605	CMakeFiles/bomberman.dir/src/bomberman.cpp.obj	18bc9a89865219f6
+4	387	6697708600453244	CMakeFiles/bomberman.dir/src/bomberman.cpp.obj	18bc9a89865219f6
 12	435	6697369192254641	CMakeFiles/bomberman.dir/src/mapelement.cpp.obj	baf0adf6e328d420
 3	459	6697369192340420	CMakeFiles/bomberman.dir/src/corridor.cpp.obj	498235743bf9d1a6
