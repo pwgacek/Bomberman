@@ -11,7 +11,7 @@
 #include "wall.hpp"
 #include "corridor.hpp"
 #include "chest.hpp"
-
+#include "bomb.hpp"
 
 class Map {
 public:
@@ -24,14 +24,21 @@ public:
     MapElement* getMapElements() const;
     Bomberman &getBomberman(int);
     bool canMove(Bomberman&);
+    void setBomb(Bomberman&b);
+    void checkBombs();
+    int getBombsSize();
+    Bomb& getBomb(int);
 private:
 
     Bomberman *bombermans;
 
     Texture wallTexture;
     Texture chestTexture;
+    Texture* bombTextureArray;
     MapElement* mapElements;
     void generateMapElements();
+    void fillBombTextureArray();
+    std::vector<Bomb>bombs;
 
 
 };

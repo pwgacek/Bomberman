@@ -25,6 +25,9 @@ private:
     bool upFlag2 = false;
     bool downFlag2 = false;
 
+    bool bombFlag1 = false;
+    bool bombFlag2 = false;
+
     float changeX=0;
     float changeY=0;
 

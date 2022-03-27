@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include "bomb.hpp"
 using namespace sf;
 class Bomberman : public Sprite {
 
@@ -31,6 +32,7 @@ public:
     Bomberman(int,int,int,unsigned int);
     ~Bomberman();
     void changeTexture();
+    void setBomb();
     int getId();
 
 
@@ -45,6 +47,7 @@ private:
     Direction *directionQueue;
     bool containsDirection(Direction d);
     void fillTextureArray();
+
 };
 
 

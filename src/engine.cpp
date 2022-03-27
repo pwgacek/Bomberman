@@ -3,6 +3,9 @@
 #include <iostream>
 const sf::Time Engine::TimePerFrame = seconds(1.f/60.f);
 Clock changeTextureClock;
+Clock setBomb1Clock;
+Clock setBomb2Clock;
+Clock bombClock;
 Engine::Engine(){
     resolution = Vector2f(Map::MAP_SIZE*Map::CELL_SIZE,Map::MAP_SIZE*Map::CELL_SIZE);
     window.create(VideoMode(resolution.x,resolution.y),"Bomber-Man",Style::Default);
@@ -76,6 +79,28 @@ void Engine::draw(){
         map.getBomberman(2).changeTexture();
 
     }
+    Time timeElapsedBomb1 = setBomb1Clock.getElapsedTime();
+    if(bombFlag1 && timeElapsedBomb1.asSeconds() > 2){
+        setBomb1Clock.restart();
+        map.setBomb(map.getBomberman(1));
+    }
+
+    Time timeElapsedBomb2 = setBomb2Clock.getElapsedTime();
+    if(bombFlag2 && timeElapsedBomb2.asSeconds() > 2){
+        setBomb2Clock.restart();
+        map.setBomb(map.getBomberman(2));
+    }
+
+    Time timeElapsedBomb = bombClock.getElapsedTime();
+    if(timeElapsedBomb.asSeconds() > 0.1){
+        bombClock.restart();
+        map.checkBombs();
+    }
+
+    for(int i=0;i<map.getBombsSize();i++){
+        window.draw(map.getBomb(i));
+    }
+
 
 
 
@@ -105,6 +130,10 @@ void Engine::input(){
                 case Keyboard::Right:   rightFlag2=true; break;
                 case Keyboard::Up:     upFlag2=true;break;
                 case Keyboard::Down:    downFlag2=true;break;
+
+                case Keyboard::V:       bombFlag1=true;break;
+                case Keyboard::M:       bombFlag2=true;break;
+
                 default : break;
             }
         }
@@ -122,6 +151,9 @@ void Engine::input(){
                 case Keyboard::Right:   rightFlag2=false; break;
                 case Keyboard::Up:     upFlag2=false; break;
                 case Keyboard::Down:    downFlag2=false; break;
+
+                case Keyboard::V:       bombFlag1= false;break;
+                case Keyboard::M:       bombFlag2= false;break;
 
                 default : break;
             }

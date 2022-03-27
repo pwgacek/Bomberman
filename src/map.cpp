@@ -13,12 +13,15 @@ Map::Map(){
 
     mapElements = new MapElement[MAP_SIZE*MAP_SIZE];
     generateMapElements();
+    bombTextureArray = new Texture[Bomb::BOMB_TEXTURES];
+    fillBombTextureArray();
 
 }
 
 Map::~Map() {
     printf("usuwam mape\n");
     delete [] mapElements;
+    delete [] bombTextureArray;
 }
 
 
@@ -138,6 +141,43 @@ bool Map::canMove(Bomberman &bomber) {
     }
     return true;
 
+}
+
+void Map::fillBombTextureArray() {
+    for(int i=0;i<Bomb::BOMB_TEXTURES;i++){
+        if(!bombTextureArray[i].loadFromFile("assets/bomb.png",IntRect(i*(int)Bomb::BOMB_WIDTH,0,Bomb::BOMB_WIDTH,Bomb::BOMB_HEIGHT))){
+            std::cout << "can't load image" <<std::endl;
+        }
+
+    }
+
+}
+
+void Map::setBomb(Bomberman &b) {
+    printf("bomba\n");
+
+    bombs.emplace_back(Bomb(b.getPosition(),bombTextureArray,CELL_SIZE));
+
+
+}
+
+void Map::checkBombs() {
+
+    bombs.erase(std::remove_if(bombs.begin(), bombs.end(),[](const Bomb& b){return !b.exist();} ),bombs.end());
+
+    //std::for_each(bombs.begin(), bombs.end(), [](const Bomb& b){b.changeTexture();});
+    for(int i=0;i<bombs.size();i++){
+        bombs[i].changeTexture();
+    }
+
+}
+
+int Map::getBombsSize() {
+    return bombs.size();
+}
+
+Bomb &Map::getBomb(int i) {
+    return bombs[i];
 }
 
 

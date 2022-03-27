@@ -11,8 +11,10 @@ Bomberman::Bomberman(int i,int x,int y, unsigned int size) {
     this->setPosition((float)x,(float)y);
     textureArray = new Texture[BOMBERMAN_SPRITES];
     fillTextureArray();
+
     this->setTexture(textureArray[textureIndex]);
     this->scale((float)size/(float)textureArray[textureIndex].getSize().x,(float)size/(float)textureArray[textureIndex].getSize().y);
+
 }
 
 Bomberman::~Bomberman(){
@@ -143,6 +145,12 @@ bool Bomberman::containsDirection(Bomberman::Direction d) {
 
 int Bomberman::getId() {
     return id;
+}
+
+
+
+void Bomberman::setBomb() {
+
 }
 
 
