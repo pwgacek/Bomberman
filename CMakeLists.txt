@@ -3,7 +3,7 @@ project(bomberman)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(bomberman src/main.cpp src/engine.cpp headers/engine.hpp src/mapitem.cpp headers/mapitem.hpp src/wall.cpp headers/wall.hpp src/map.cpp headers/map.hpp src/bomberman.cpp headers/bomberman.hpp src/mapelement.cpp headers/mapelement.hpp src/corridor.cpp headers/corridor.hpp src/chest.cpp headers/chest.hpp src/bomb.cpp headers/bomb.hpp)
+add_executable(bomberman src/main.cpp src/engine.cpp headers/engine.hpp src/mapitem.cpp headers/mapitem.hpp src/map_elements/wall.cpp headers/map_elements/wall.hpp src/map.cpp headers/map.hpp src/bomberman.cpp headers/bomberman.hpp src/map_elements/mapelement.cpp headers/map_elements/mapelement.hpp src/map_elements/corridor.cpp headers/map_elements/corridor.hpp src/map_elements/chest.cpp headers/map_elements/chest.hpp src/bomb.cpp headers/bomb.hpp)
 
 include_directories(headers /usr/include c:/SFML/include)
 

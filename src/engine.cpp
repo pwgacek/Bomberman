@@ -1,17 +1,25 @@
 #include "engine.hpp"
-#include "wall.hpp"
+#include "map_elements/wall.hpp"
 #include <iostream>
 const sf::Time Engine::TimePerFrame = seconds(1.f/60.f);
-Clock changeTextureClock;
-Clock setBomb1Clock;
-Clock setBomb2Clock;
-Clock bombClock;
+
 Engine::Engine(){
+
     resolution = Vector2f(Map::MAP_SIZE*Map::CELL_SIZE,Map::MAP_SIZE*Map::CELL_SIZE);
-    window.create(VideoMode(resolution.x,resolution.y),"Bomber-Man",Style::Default);
+    window.create(VideoMode((int)resolution.x,(int)resolution.y),
+                  "Bomber-Man",Style::Default);
     window.setFramerateLimit(FPS);
 
-    changedPosition  = map.getBomberman(1).getPosition();
+    firstPlayerMoveFlags["left"] = false;
+    firstPlayerMoveFlags["right"] = false;
+    firstPlayerMoveFlags["up"] = false;
+    firstPlayerMoveFlags["down"] = false;
+
+    secondPlayerMoveFlags["left"] = false;
+    secondPlayerMoveFlags["right"] = false;
+    secondPlayerMoveFlags["up"] = false;
+    secondPlayerMoveFlags["down"] = false;
+
 }
 
 void Engine::run() {
@@ -32,82 +40,49 @@ void Engine::draw(){
             window.draw(map.getMapElements()[i]) ;
     }
 
+    //set direction of bomberman
+    map.getBomberman(1).changeDirection(firstPlayerMoveFlags);
+    map.getBomberman(2).changeDirection(secondPlayerMoveFlags);
+    //move bomberman
+    map.move(map.getBomberman(1),firstPlayerMoveFlags,5);
+    map.move(map.getBomberman(2),secondPlayerMoveFlags,5);
 
-
-    if(upFlag)map.getBomberman(1).addDirection(Bomberman::up);
-    else map.getBomberman(1).removeDirection(Bomberman::up);
-
-    if(leftFlag)map.getBomberman(1).addDirection(Bomberman::left);
-    else map.getBomberman(1).removeDirection(Bomberman::left);
-
-    if(rightFlag)map.getBomberman(1).addDirection(Bomberman::right);
-    else map.getBomberman(1).removeDirection(Bomberman::right);
-
-    if(downFlag)map.getBomberman(1).addDirection(Bomberman::down);
-    else map.getBomberman(1).removeDirection(Bomberman::down);
-
-
-
-    if(upFlag2)map.getBomberman(2).addDirection(Bomberman::up);
-    else map.getBomberman(2).removeDirection(Bomberman::up);
-
-    if(leftFlag2)map.getBomberman(2).addDirection(Bomberman::left);
-    else map.getBomberman(2).removeDirection(Bomberman::left);
-
-    if(rightFlag2)map.getBomberman(2).addDirection(Bomberman::right);
-    else map.getBomberman(2).removeDirection(Bomberman::right);
-
-    if(downFlag2)map.getBomberman(2).addDirection(Bomberman::down);
-    else map.getBomberman(2).removeDirection(Bomberman::down);
-
-
-
-    if(leftFlag && map.getBomberman(1).getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(-5,0);
-    if(rightFlag && map.getBomberman(1).getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(5,0);
-    if(upFlag && map.getBomberman(1).getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,-5);
-    if(downFlag && map.getBomberman(1).getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(1)))map.getBomberman(1).move(0,5);
-
-    if(leftFlag2 && map.getBomberman(2).getDirection() == Bomberman::left) if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(-5,0);
-    if(rightFlag2 && map.getBomberman(2).getDirection() == Bomberman::right) if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(5,0);
-    if(upFlag2 && map.getBomberman(2).getDirection() == Bomberman::up) if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(0,-5);
-    if(downFlag2 && map.getBomberman(2).getDirection() == Bomberman::down)if(map.canMove(map.getBomberman(2)))map.getBomberman(2).move(0,5);
-
-    Time timeElapsed = changeTextureClock.getElapsedTime();
-    if(timeElapsed.asSeconds() > 0.1){
-        changeTextureClock.restart();
+    //animate bomberman
+    if(changeBombermanTextureClock.getElapsedTime().asSeconds() > 0.1){
+        changeBombermanTextureClock.restart();
         map.getBomberman(1).changeTexture();
         map.getBomberman(2).changeTexture();
 
     }
-    Time timeElapsedBomb1 = setBomb1Clock.getElapsedTime();
-    if(bombFlag1 && timeElapsedBomb1.asSeconds() > 2){
-        setBomb1Clock.restart();
+    //animate bomb
+    if(bombClock.getElapsedTime().asSeconds() > 0.1){
+        bombClock.restart();
+        map.animateBombs();
+    }
+
+    // places bomb (max 1 per 2 sec)
+    if(firstPlayerBombFlag && firstPlayerSetBombTime.getElapsedTime().asSeconds() > 2){
+        firstPlayerSetBombTime.restart();
         map.setBomb(map.getBomberman(1));
     }
 
-    Time timeElapsedBomb2 = setBomb2Clock.getElapsedTime();
-    if(bombFlag2 && timeElapsedBomb2.asSeconds() > 2){
-        setBomb2Clock.restart();
+    if(secondPlayerBombFlag && secondPlayerSetBombTime.getElapsedTime().asSeconds() > 2){
+        secondPlayerSetBombTime.restart();
         map.setBomb(map.getBomberman(2));
     }
 
-    Time timeElapsedBomb = bombClock.getElapsedTime();
-    if(timeElapsedBomb.asSeconds() > 0.1){
-        bombClock.restart();
-        map.checkBombs();
+
+    //draw bombs
+    for(const auto & i : map.getBombs()){
+        window.draw(i);
     }
-
-    for(int i=0;i<map.getBombsSize();i++){
-        window.draw(map.getBomb(i));
-    }
-
-
-
-
+    //draw bomberman
     window.draw(map.getBomberman(1));
     window.draw(map.getBomberman(2));
+
     window.display();
 }
+
 void Engine::input(){
     Event event{};
     while(window.pollEvent(event)){
@@ -115,24 +90,22 @@ void Engine::input(){
             window.close();
         }
 
-
-
         if(event.type == Event::KeyPressed){
             switch (event.key.code) {
                 case  Keyboard::Escape : window.close(); break;
 
-                case Keyboard::A:    leftFlag=true; break;
-                case Keyboard::D:   rightFlag=true; break;
-                case Keyboard::W:     upFlag=true;break;
-                case Keyboard::S:    downFlag=true;break;
+                case Keyboard::A:    firstPlayerMoveFlags["left"]=true; break;
+                case Keyboard::D:   firstPlayerMoveFlags["right"]=true; break;
+                case Keyboard::W:     firstPlayerMoveFlags["up"]=true;break;
+                case Keyboard::S:    firstPlayerMoveFlags["down"]=true;break;
 
-                case Keyboard::Left:    leftFlag2=true; break;
-                case Keyboard::Right:   rightFlag2=true; break;
-                case Keyboard::Up:     upFlag2=true;break;
-                case Keyboard::Down:    downFlag2=true;break;
+                case Keyboard::Left:   secondPlayerMoveFlags["left"]=true; break;
+                case Keyboard::Right:   secondPlayerMoveFlags["right"]=true; break;
+                case Keyboard::Up:     secondPlayerMoveFlags["up"]=true;break;
+                case Keyboard::Down:    secondPlayerMoveFlags["down"]=true;break;
 
-                case Keyboard::V:       bombFlag1=true;break;
-                case Keyboard::M:       bombFlag2=true;break;
+                case Keyboard::V: firstPlayerBombFlag=true;break;
+                case Keyboard::M: secondPlayerBombFlag=true;break;
 
                 default : break;
             }
@@ -142,18 +115,18 @@ void Engine::input(){
         {
             switch (event.key.code)
             {
-                case Keyboard::A:    leftFlag=false; break;
-                case Keyboard::D:   rightFlag=false; break;
-                case Keyboard::W:     upFlag=false; break;
-                case Keyboard::S:    downFlag=false; break;
+                case Keyboard::A:    firstPlayerMoveFlags["left"]=false; break;
+                case Keyboard::D:   firstPlayerMoveFlags["right"]=false; break;
+                case Keyboard::W:     firstPlayerMoveFlags["up"]=false; break;
+                case Keyboard::S:    firstPlayerMoveFlags["down"]=false; break;
 
-                case Keyboard::Left:    leftFlag2=false; break;
-                case Keyboard::Right:   rightFlag2=false; break;
-                case Keyboard::Up:     upFlag2=false; break;
-                case Keyboard::Down:    downFlag2=false; break;
+                case Keyboard::Left:    secondPlayerMoveFlags["left"]=false; break;
+                case Keyboard::Right:   secondPlayerMoveFlags["right"]=false; break;
+                case Keyboard::Up:     secondPlayerMoveFlags["up"]=false; break;
+                case Keyboard::Down:    secondPlayerMoveFlags["down"]=false; break;
 
-                case Keyboard::V:       bombFlag1= false;break;
-                case Keyboard::M:       bombFlag2= false;break;
+                case Keyboard::V: firstPlayerBombFlag= false;break;
+                case Keyboard::M: secondPlayerBombFlag= false;break;
 
                 default : break;
             }

@@ -4,16 +4,15 @@
 
 #include "bomberman.hpp"
 
-Bomberman::Bomberman(int i,int x,int y, unsigned int size) {
-    this->id = i;
+Bomberman::Bomberman(int i,int x,int y, unsigned int size):id{i} {
     directionQueue = new Direction[4]{none,none,none,none};
-
     this->setPosition((float)x,(float)y);
     textureArray = new Texture[BOMBERMAN_SPRITES];
     fillTextureArray();
 
     this->setTexture(textureArray[textureIndex]);
-    this->scale((float)size/(float)textureArray[textureIndex].getSize().x,(float)size/(float)textureArray[textureIndex].getSize().y);
+    this->scale((float)size/(float)textureArray[textureIndex].getSize().x,
+                (float)size/(float)textureArray[textureIndex].getSize().y);
 
 }
 
@@ -67,6 +66,20 @@ void Bomberman::removeDirection(Bomberman::Direction d) {
 
     }
 
+}
+
+void Bomberman::changeDirection(map<string, bool> &playerMoveFlags) {
+    if(playerMoveFlags["up"])addDirection(Bomberman::up);
+    else removeDirection(Bomberman::up);
+
+    if(playerMoveFlags["left"])addDirection(Bomberman::left);
+    else removeDirection(Bomberman::left);
+
+    if(playerMoveFlags["right"])addDirection(Bomberman::right);
+    else removeDirection(Bomberman::right);
+
+    if(playerMoveFlags["down"])addDirection(Bomberman::down);
+    else removeDirection(Bomberman::down);
 }
 
 
@@ -143,15 +156,6 @@ bool Bomberman::containsDirection(Bomberman::Direction d) {
 }
 
 
-int Bomberman::getId() {
-    return id;
-}
-
-
-
-void Bomberman::setBomb() {
-
-}
 
 
 

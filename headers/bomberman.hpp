@@ -8,7 +8,9 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include "bomb.hpp"
+#include <map>
 using namespace sf;
+using namespace std;
 class Bomberman : public Sprite {
 
 public:
@@ -29,20 +31,17 @@ public:
     Direction getDirection();
     void addDirection(Direction d);
     void removeDirection(Direction d);
+    void changeDirection(map<string,bool>&);
     Bomberman(int,int,int,unsigned int);
     ~Bomberman();
     void changeTexture();
-    void setBomb();
-    int getId();
-
-
 
 
 private:
     int id;
     int textureIndex = 1;
     int earlierTextureIndex = -1;
-    Texture* textureArray = nullptr;
+    Texture* textureArray;
 
     Direction *directionQueue;
     bool containsDirection(Direction d);

@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "wall.hpp"
+#include "map_elements/wall.hpp"
 using namespace std;
 using namespace sf;
 Wall::Wall(Vector2f& position,Texture& texture,unsigned int size){

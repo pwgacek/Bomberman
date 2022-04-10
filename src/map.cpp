@@ -8,12 +8,12 @@
 #include <ctime>
 
 Map::Map(){
-
-    bombermans = new Bomberman[PLAYERS_NUMBER]{Bomberman(1,CELL_SIZE,CELL_SIZE,CELL_SIZE),Bomberman(2,(MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE,CELL_SIZE)};
-
     mapElements = new MapElement[MAP_SIZE*MAP_SIZE];
-    generateMapElements();
     bombTextureArray = new Texture[Bomb::BOMB_TEXTURES];
+    bombermans = new Bomberman[PLAYERS_NUMBER]{Bomberman(1,CELL_SIZE,CELL_SIZE,CELL_SIZE),
+                                               Bomberman(2,(MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE,CELL_SIZE)};
+
+    generateMapElements();
     fillBombTextureArray();
 
 }
@@ -22,6 +22,7 @@ Map::~Map() {
     printf("usuwam mape\n");
     delete [] mapElements;
     delete [] bombTextureArray;
+    delete [] bombermans;
 }
 
 
@@ -40,8 +41,8 @@ void Map::generateMapElements() {
         std::cout << "can't load image" <<std::endl;
     }
 
-    //int q=0;
     Vector2f v1,v2,v3,v4;
+    // create borders
     for(int i=0;i<MAP_SIZE-1;i++){
 
         v1.x = (float)i*CELL_SIZE;
@@ -60,7 +61,7 @@ void Map::generateMapElements() {
 
 
     }
-
+    //create walls
     for(int i=2;i<MAP_SIZE-2;i+=2){
         for(int j=2;j<MAP_SIZE-2;j+=2){
             v1.x = (float)i*CELL_SIZE;
@@ -68,21 +69,18 @@ void Map::generateMapElements() {
             mapElements[i*MAP_SIZE+j] = Wall(v1,wallTexture,CELL_SIZE);
         }
     }
-//    int r;
-//    srand((int)time(0));
+    //create corridors
     for(int i=0;i<MAP_SIZE*MAP_SIZE;i++){
         if(mapElements[i].getMapElementType() != MapElement::wall){
             Vector2f v((float)((int)(i/MAP_SIZE))*CELL_SIZE,(float)(i%MAP_SIZE) * CELL_SIZE);
-//            r = (rand() % 100) + 1;;
             mapElements[i] = Corridor(v);
-            //else mapElements[i] = Chest(v,chestTexture,CELL_SIZE);
 
         }
 
     }
-    Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
-    mapElements[MAP_SIZE+1] = Corridor(d1);
-    mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
+//    Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
+//    mapElements[MAP_SIZE+1] = Corridor(d1);
+//    mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
 
 
 }
@@ -97,44 +95,68 @@ bool Map::canMove(Bomberman &bomber) {
     switch (bomber.getDirection()) {
 
         case Bomberman::left:{
-            index = (int) ((int)(bomber.getPosition().x/ CELL_SIZE) * MAP_SIZE) + (int)((bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
-            if((int)bomber.getPosition().x % CELL_SIZE == 0){
-                if(mapElements[index-MAP_SIZE].getMapElementType() == MapElement::wall || mapElements[index-MAP_SIZE].getMapElementType() == MapElement::chest)return false;
-                if(mapElements[index-MAP_SIZE].getPosition().y != bomber.getPosition().y)
-                    bomber.move(0, mapElements[index-MAP_SIZE].getPosition().y -bomber.getPosition().y);
-            }
+            index = (int) ((int)(bomber.getPosition().x/ CELL_SIZE) * MAP_SIZE) +
+                    (int)((bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
 
+            if((int)bomber.getPosition().x % CELL_SIZE == 0){
+
+                if(mapElements[index-MAP_SIZE].getMapElementType() == MapElement::wall ||
+                mapElements[index-MAP_SIZE].getMapElementType() == MapElement::chest){
+                    return false;
+                }
+                if(mapElements[index-MAP_SIZE].getPosition().y != bomber.getPosition().y){
+                    bomber.move(0, mapElements[index-MAP_SIZE].getPosition().y -bomber.getPosition().y);
+                }
+            }
             break;
         }
         case Bomberman::right:{
-            index = (int) ((int)((bomber.getPosition().x + (CELL_SIZE-1))/ CELL_SIZE) * MAP_SIZE) + (int)((bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
-            if((int)bomber.getPosition().x % CELL_SIZE == 0){
-                if(mapElements[index+MAP_SIZE].getMapElementType() == MapElement::wall || mapElements[index+MAP_SIZE].getMapElementType() == MapElement::chest)return false;
-                if(mapElements[index+MAP_SIZE].getPosition().y != bomber.getPosition().y)
-                    bomber.move(0, mapElements[index+MAP_SIZE].getPosition().y -bomber.getPosition().y);
-            }
+            index = (int) ((int)((bomber.getPosition().x + (CELL_SIZE-1))/ CELL_SIZE) * MAP_SIZE) +
+                    (int)((bomber.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
 
+            if((int)bomber.getPosition().x % CELL_SIZE == 0){
+
+                if(mapElements[index+MAP_SIZE].getMapElementType() == MapElement::wall ||
+                mapElements[index+MAP_SIZE].getMapElementType() == MapElement::chest){
+                    return false;
+                }
+                if(mapElements[index+MAP_SIZE].getPosition().y != bomber.getPosition().y){
+                    bomber.move(0, mapElements[index+MAP_SIZE].getPosition().y -bomber.getPosition().y);
+                }
+            }
             break;
         }
         case Bomberman::up:{
-            index = (int) ((int)((bomber.getPosition().x +((float)CELL_SIZE/2)) / CELL_SIZE) * MAP_SIZE) + (int)(bomber.getPosition().y/CELL_SIZE);
+            index = (int) ((int)((bomber.getPosition().x +((float)CELL_SIZE/2)) / CELL_SIZE) * MAP_SIZE) +
+                    (int)(bomber.getPosition().y/CELL_SIZE);
+
             if((int)bomber.getPosition().y % CELL_SIZE == 0){
 
-                if(mapElements[index-1].getMapElementType() == MapElement::wall|| mapElements[index-1].getMapElementType() == MapElement::chest) return false;
-
-                if(mapElements[index-1].getPosition().x != bomber.getPosition().x)
+                if(mapElements[index-1].getMapElementType() == MapElement::wall||
+                mapElements[index-1].getMapElementType() == MapElement::chest){
+                    return false;
+                }
+                if(mapElements[index-1].getPosition().x != bomber.getPosition().x){
                     bomber.move(mapElements[index-1].getPosition().x-bomber.getPosition().x,0);
+                }
             }
             break;
         }
        case Bomberman::down:{
-           index = (int) ((int)((bomber.getPosition().x +((float)CELL_SIZE/2)) / CELL_SIZE) * MAP_SIZE)  + (int)((bomber.getPosition().y + (float)(CELL_SIZE-1))/CELL_SIZE);
-           if((int)bomber.getPosition().y % CELL_SIZE == 0){
-               if(mapElements[index+1].getMapElementType() == MapElement::wall|| mapElements[index+1].getMapElementType() == MapElement::chest) return false;
-               if(mapElements[index+1].getPosition().x != bomber.getPosition().x)
-                   bomber.move(mapElements[index+1].getPosition().x-bomber.getPosition().x,0);
-           }
+           index = (int) ((int)((bomber.getPosition().x +((float)CELL_SIZE/2)) / CELL_SIZE) * MAP_SIZE)  +
+                   (int)((bomber.getPosition().y + (float)(CELL_SIZE-1))/CELL_SIZE);
 
+           if((int)bomber.getPosition().y % CELL_SIZE == 0){
+
+               if(mapElements[index+1].getMapElementType() == MapElement::wall||
+               mapElements[index+1].getMapElementType() == MapElement::chest){
+                   return false;
+               }
+               if(mapElements[index+1].getPosition().x != bomber.getPosition().x){
+                   bomber.move(mapElements[index+1].getPosition().x-bomber.getPosition().x,0);
+
+               }
+           }
            break;
         }
         default:break;
@@ -145,40 +167,49 @@ bool Map::canMove(Bomberman &bomber) {
 
 void Map::fillBombTextureArray() {
     for(int i=0;i<Bomb::BOMB_TEXTURES;i++){
-        if(!bombTextureArray[i].loadFromFile("assets/bomb.png",IntRect(i*(int)Bomb::BOMB_WIDTH,0,Bomb::BOMB_WIDTH,Bomb::BOMB_HEIGHT))){
+        if(!bombTextureArray[i].loadFromFile("assets/bomb.png",
+           IntRect(i*(int)Bomb::BOMB_WIDTH,0,Bomb::BOMB_WIDTH,Bomb::BOMB_HEIGHT))){
             std::cout << "can't load image" <<std::endl;
         }
-
     }
-
 }
 
 void Map::setBomb(Bomberman &b) {
     printf("bomba\n");
-
     bombs.emplace_back(Bomb(b.getPosition(),bombTextureArray,CELL_SIZE));
-
-
 }
 
-void Map::checkBombs() {
+void Map::animateBombs() {
 
-    bombs.erase(std::remove_if(bombs.begin(), bombs.end(),[](const Bomb& b){return !b.exist();} ),bombs.end());
+    bombs.erase(std::remove_if(
+            bombs.begin(), bombs.end(),[](const Bomb& b){return !b.exist();} ),bombs.end());
 
-    //std::for_each(bombs.begin(), bombs.end(), [](const Bomb& b){b.changeTexture();});
-    for(int i=0;i<bombs.size();i++){
-        bombs[i].changeTexture();
+    for(auto & bomb : bombs){
+        bomb.changeTexture();
+    }
+}
+
+const std::vector<Bomb> &Map::getBombs() const {
+    return bombs;
+}
+
+void Map::move(Bomberman &bomberman, map<string, bool> &playerMoveFlags, float moveSpeed) {
+    if(canMove(bomberman)){
+        if(bomberman.getDirection() == Bomberman::left)
+            bomberman.move(-moveSpeed,0);
+        if(bomberman.getDirection() == Bomberman::right)
+            bomberman.move(moveSpeed,0);
+        if(bomberman.getDirection() == Bomberman::up)
+            bomberman.move(0,-moveSpeed);
+        if(bomberman.getDirection() == Bomberman::down)
+            bomberman.move(0,moveSpeed);
     }
 
 }
 
-int Map::getBombsSize() {
-    return bombs.size();
-}
 
-Bomb &Map::getBomb(int i) {
-    return bombs[i];
-}
+
+
 
 
 

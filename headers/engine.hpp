@@ -15,23 +15,16 @@ private:
     static const Time TimePerFrame;
     Map map;
 
-    bool leftFlag = false;
-    bool rightFlag = false;
-    bool upFlag = false;
-    bool downFlag = false;
+    std::map<string,bool> firstPlayerMoveFlags;
+    std::map<string,bool> secondPlayerMoveFlags;
 
-    bool leftFlag2 = false;
-    bool rightFlag2 = false;
-    bool upFlag2 = false;
-    bool downFlag2 = false;
+    bool firstPlayerBombFlag = false;
+    bool secondPlayerBombFlag = false;
 
-    bool bombFlag1 = false;
-    bool bombFlag2 = false;
-
-    float changeX=0;
-    float changeY=0;
-
-    Vector2f changedPosition;
+    Clock changeBombermanTextureClock;
+    Clock firstPlayerSetBombTime;
+    Clock secondPlayerSetBombTime;
+    Clock bombClock;
 
 public:
 

@@ -19,8 +19,6 @@ void Bomb::changeTexture() {
     if(waiter>10 || textureIndex== 0){
         setTexture(textureArray[textureIndex++]);
     }
-
-
 }
 
 bool Bomb::exist() const {
