@@ -167,16 +167,21 @@ bool Map::canMove(Bomberman &bomber) {
 
 void Map::fillBombTextureArray() {
     for(int i=0;i<Bomb::BOMB_TEXTURES;i++){
-        if(!bombTextureArray[i].loadFromFile("assets/bomb.png",
+        if(!bombTextureArray[i].loadFromFile("assets/bombs.png",
            IntRect(i*(int)Bomb::BOMB_WIDTH,0,Bomb::BOMB_WIDTH,Bomb::BOMB_HEIGHT))){
             std::cout << "can't load image" <<std::endl;
         }
     }
 }
 
-void Map::setBomb(Bomberman &b) {
+void Map::setBomb(Bomberman &bomberman) {
     printf("bomba\n");
-    bombs.emplace_back(Bomb(b.getPosition(),bombTextureArray,CELL_SIZE));
+    double bombermanCenterX = bomberman.getPosition().x + (double)CELL_SIZE/2.0;
+    double bombermanCenterY = bomberman.getPosition().y + (double)CELL_SIZE/2.0;
+    double bombX = (int)(bombermanCenterX/CELL_SIZE)*CELL_SIZE;
+    double bombY = (int)(bombermanCenterY/CELL_SIZE)*CELL_SIZE;
+    Vector2f b((float)bombX,(float)bombY);
+    bombs.emplace_back(Bomb(b,bombTextureArray,CELL_SIZE));
 }
 
 void Map::animateBombs() {

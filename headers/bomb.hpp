@@ -11,7 +11,7 @@ using namespace sf;
 class Bomb : public Sprite{
 public:
     Bomb(const Vector2f&,Texture*,unsigned int);
-    static const unsigned int BOMB_TEXTURES = 10;
+    static const unsigned int BOMB_TEXTURES = 14;
     static const unsigned int BOMB_WIDTH = 22;
     static const unsigned int BOMB_HEIGHT = 22;
     bool exist() const;
@@ -22,7 +22,7 @@ private:
     Texture* textureArray = nullptr;
 
     int textureIndex;
-    int waiter=0;
+
 
 };
 

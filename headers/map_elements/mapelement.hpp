@@ -12,11 +12,7 @@ using namespace sf;
 
 class MapElement : public Sprite {
 public:
-    enum MapElementType{
-        corridor,
-        wall,
-        chest
-    };
+    enum MapElementType{corridor,wall,chest};
     MapElementType getMapElementType();
 
 protected:

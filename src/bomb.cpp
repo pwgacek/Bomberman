@@ -2,7 +2,6 @@
 // Created by pawel on 27.03.2022.
 //
 
-#include <SFML/System/Clock.hpp>
 #include "bomb.hpp"
 
 Bomb::Bomb(const Vector2f &position, Texture *textureArray, unsigned int size) {
@@ -15,10 +14,7 @@ Bomb::Bomb(const Vector2f &position, Texture *textureArray, unsigned int size) {
 }
 
 void Bomb::changeTexture() {
-    waiter++;
-    if(waiter>10 || textureIndex== 0){
-        setTexture(textureArray[textureIndex++]);
-    }
+    setTexture(textureArray[textureIndex++]);
 }
 
 bool Bomb::exist() const {

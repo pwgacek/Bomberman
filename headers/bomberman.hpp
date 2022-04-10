@@ -18,24 +18,16 @@ public:
     static const unsigned int BOMBERMAN_WIDTH = 16;
     static const unsigned int BOMBERMAN_SPRITES = 18;
 
-
-    enum Direction{
-        none,
-        left,
-        right,
-        up,
-        down
-
-    };
+    enum Direction{none,left,right,up,down};
 
     Direction getDirection();
     void addDirection(Direction d);
     void removeDirection(Direction d);
     void changeDirection(map<string,bool>&);
-    Bomberman(int,int,int,unsigned int);
-    ~Bomberman();
-    void changeTexture();
 
+    void changeTexture();
+    Bomberman(int,int,int,unsigned int);
+    ~Bomberman() override;
 
 private:
     int id;
