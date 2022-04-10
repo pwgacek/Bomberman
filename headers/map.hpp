@@ -11,8 +11,10 @@ using namespace std;
 #include "map_elements/wall.hpp"
 #include "map_elements/corridor.hpp"
 #include "map_elements/chest.hpp"
+#include "map_elements/explosion.hpp"
 #include "bomb.hpp"
 #include <map>
+#include <unordered_map>
 class Map {
 public:
 
@@ -30,7 +32,7 @@ public:
     bool canMove(Bomberman&);
     void move(Bomberman&,std::map<string,bool>&,float);
     void setBomb(Bomberman&);
-
+    void showExplosion();
     void animateBombs();
 
     const std::vector<Bomb> &getBombs() const;
@@ -40,15 +42,17 @@ private:
     Bomberman* bombermans;
     MapElement* mapElements;
     std::vector<Bomb>bombs;
-
+    std::unordered_map<int,int> explosionHashMap;
 
     Texture wallTexture;
     Texture chestTexture;
+    Texture explosionTexture;
     Texture* bombTextureArray;
 
     void generateMapElements();
     void fillBombTextureArray();
-
+    void addExplosions(int);
+    void removeExplosions(int);
 
 };
 

@@ -13,8 +13,14 @@ Bomb::Bomb(const Vector2f &position, Texture *textureArray, unsigned int size) {
     changeTexture();
 }
 
-void Bomb::changeTexture() {
+int Bomb::changeTexture() {
+
+    if(textureIndex == 4 and cycleCounter < 3){
+        textureIndex = 0;
+        cycleCounter++;
+    }
     setTexture(textureArray[textureIndex++]);
+    return textureIndex;
 }
 
 bool Bomb::exist() const {

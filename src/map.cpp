@@ -5,7 +5,9 @@
 #include "map.hpp"
 #include "bomberman.hpp"
 #include <iostream>
-#include <ctime>
+#include <random>
+#include <functional>
+
 
 Map::Map(){
     mapElements = new MapElement[MAP_SIZE*MAP_SIZE];
@@ -30,6 +32,10 @@ Map::~Map() {
 MapElement *Map::getMapElements() const {
     return mapElements;
 }
+bool randomBool() {
+    static auto gen = std::bind(std::uniform_int_distribution<>(0,1),std::default_random_engine());
+    return gen();
+}
 
 void Map::generateMapElements() {
 
@@ -38,6 +44,9 @@ void Map::generateMapElements() {
         std::cout << "can't load image" <<std::endl;
     }
     if(!chestTexture.loadFromFile("assets/chest.png")){
+        std::cout << "can't load image" <<std::endl;
+    }
+    if(!explosionTexture.loadFromFile("assets/explosion.png")){
         std::cout << "can't load image" <<std::endl;
     }
 
@@ -69,15 +78,19 @@ void Map::generateMapElements() {
             mapElements[i*MAP_SIZE+j] = Wall(v1,wallTexture,CELL_SIZE);
         }
     }
-    //create corridors
+    //create corridors and chest
+
     for(int i=0;i<MAP_SIZE*MAP_SIZE;i++){
         if(mapElements[i].getMapElementType() != MapElement::wall){
             Vector2f v((float)((int)(i/MAP_SIZE))*CELL_SIZE,(float)(i%MAP_SIZE) * CELL_SIZE);
-            mapElements[i] = Corridor(v);
+            if(randomBool() == 0) mapElements[i] = Corridor(v);
+            else mapElements[i] = Chest(v,chestTexture,CELL_SIZE);
 
         }
 
     }
+    //create chests
+
 //    Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
 //    mapElements[MAP_SIZE+1] = Corridor(d1);
 //    mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
@@ -190,9 +203,130 @@ void Map::animateBombs() {
             bombs.begin(), bombs.end(),[](const Bomb& b){return !b.exist();} ),bombs.end());
 
     for(auto & bomb : bombs){
-        bomb.changeTexture();
+        int status = bomb.changeTexture();
+        if(status == Bomb::EXPLOSION_FRAME){
+            int index = (int)((int)(bomb.getPosition().x/CELL_SIZE)*MAP_SIZE)+(int)((bomb.getPosition().y)/CELL_SIZE);
+            addExplosions(index);
+        }
+        if(status == Bomb::BOMB_TEXTURES){
+            int index = (int)((int)(bomb.getPosition().x/CELL_SIZE)*MAP_SIZE)+(int)((bomb.getPosition().y)/CELL_SIZE);
+            removeExplosions(index);
+        }
+
     }
 }
+
+void Map::addExplosions(int index) {
+    cout << "before add: " << endl;
+    for(auto & it : explosionHashMap){
+        cout << it.first << " " << it.second << endl;
+    }
+    cout <<endl;
+    for(int i=1;i<=5;i++){
+        if(mapElements[index+i].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index+i].getMapElementType() == MapElement::chest){
+            explosionHashMap[index+i]++;
+            break;
+        }
+        explosionHashMap[index+i]++;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index-i].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index-i].getMapElementType() == MapElement::chest){
+            explosionHashMap[index-i]++;
+            break;
+        }
+        explosionHashMap[index-i]++;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::chest){
+            explosionHashMap[index+i*(int)MAP_SIZE]++;
+            break;
+        }
+        explosionHashMap[index+i*(int)MAP_SIZE]++;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::chest){
+            explosionHashMap[index-i*(int)MAP_SIZE]++;
+            break;
+        }
+        explosionHashMap[index-i*(int)MAP_SIZE]++;
+    }
+    cout << "after add: " << endl;
+    for(auto & it : explosionHashMap){
+        cout << it.first << " " << it.second << endl;
+    }
+
+}
+void Map::removeExplosions(int index) {
+    cout << "before remove: " << endl;
+    for(auto & it : explosionHashMap){
+        cout << it.first << " " << it.second << endl;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index+i].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index+i].getMapElementType() == MapElement::chest){
+            break;
+        }
+        if(mapElements[index+i].getMapElementType() == MapElement::explosion){
+            explosionHashMap[index+i]--;
+        }
+        else break;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index-i].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index-i].getMapElementType() == MapElement::chest){
+            break;
+        }
+        if(mapElements[index-i].getMapElementType() == MapElement::explosion){
+            explosionHashMap[index-i]--;
+        }
+        else break;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::chest){
+            break;
+        }
+        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::explosion){
+            explosionHashMap[index+i*(int)MAP_SIZE]--;
+        }
+        else break;
+    }
+    for(int i=1;i<=5;i++){
+        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::wall){
+            break;
+        }
+        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::chest){
+            break;
+        }
+        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::explosion){
+            explosionHashMap[index-i*(int)MAP_SIZE]--;
+        }
+        else break;
+    }
+    cout << "after remove: " << endl;
+    for(auto & it : explosionHashMap){
+        cout << it.first << " " << it.second << endl;
+    }
+}
+
 
 const std::vector<Bomb> &Map::getBombs() const {
     return bombs;
@@ -211,6 +345,27 @@ void Map::move(Bomberman &bomberman, map<string, bool> &playerMoveFlags, float m
     }
 
 }
+
+void Map::showExplosion() {
+
+    for(auto & it : explosionHashMap)
+    {
+        if(it.second > 0 && mapElements[it.first].getMapElementType() != MapElement::explosion){
+            Vector2f v(mapElements[it.first].getPosition());
+            mapElements[it.first] =  Explosion(v,explosionTexture,CELL_SIZE);
+        }
+        if(it.second == 0 && mapElements[it.first].getMapElementType() == MapElement::explosion){
+            Vector2f v(mapElements[it.first].getPosition());
+            mapElements[it.first] =  Corridor(v);
+            explosionHashMap.erase(it.first);
+        }
+
+    }
+}
+
+
+
+
 
 
 

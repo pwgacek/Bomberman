@@ -10,15 +10,9 @@ Engine::Engine(){
                   "Bomber-Man",Style::Default);
     window.setFramerateLimit(FPS);
 
-    firstPlayerMoveFlags["left"] = false;
-    firstPlayerMoveFlags["right"] = false;
-    firstPlayerMoveFlags["up"] = false;
-    firstPlayerMoveFlags["down"] = false;
+    firstPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
+    secondPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
 
-    secondPlayerMoveFlags["left"] = false;
-    secondPlayerMoveFlags["right"] = false;
-    secondPlayerMoveFlags["up"] = false;
-    secondPlayerMoveFlags["down"] = false;
 
 }
 
@@ -34,11 +28,7 @@ void Engine::run() {
 void Engine::draw(){
     window.clear(Color::Black);
 
-    for(int i=0;i<Map::MAP_SIZE*Map::MAP_SIZE;i++){
 
-        if(map.getMapElements()[i].getPosition().x != -1)
-            window.draw(map.getMapElements()[i]) ;
-    }
 
     //set direction of bomberman
     map.getBomberman(1).changeDirection(firstPlayerMoveFlags);
@@ -58,6 +48,7 @@ void Engine::draw(){
     if(bombClock.getElapsedTime().asSeconds() > 0.1){
         bombClock.restart();
         map.animateBombs();
+        map.showExplosion();
     }
 
     // places bomb (max 1 per 2 sec)
@@ -71,7 +62,9 @@ void Engine::draw(){
         map.setBomb(map.getBomberman(2));
     }
 
-
+    for(int i=0;i<Map::MAP_SIZE*Map::MAP_SIZE;i++){
+        window.draw(map.getMapElements()[i]) ;
+    }
     //draw bombs
     for(const auto & i : map.getBombs()){
         window.draw(i);

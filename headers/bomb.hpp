@@ -14,15 +14,16 @@ public:
     static const unsigned int BOMB_TEXTURES = 14;
     static const unsigned int BOMB_WIDTH = 22;
     static const unsigned int BOMB_HEIGHT = 22;
+    static const unsigned int EXPLOSION_FRAME = 7;
     bool exist() const;
-    void changeTexture();
+    int changeTexture();
 
 
 private:
     Texture* textureArray = nullptr;
 
     int textureIndex;
-
+    int cycleCounter = 0;
 
 };
 
