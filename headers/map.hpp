@@ -34,7 +34,7 @@ public:
     void setBomb(Bomberman&);
     void showExplosion();
     void animateBombs();
-
+    bool bombermanDamaged(Bomberman&);
     const std::vector<Bomb> &getBombs() const;
 
 private:
@@ -53,6 +53,7 @@ private:
     void fillBombTextureArray();
     void addExplosions(int);
     void removeExplosions(int);
+
 
 };
 

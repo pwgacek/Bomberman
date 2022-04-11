@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "map.hpp"
+#include "info_bar/infobar.hpp"
 using namespace sf;
 using namespace std;
 
@@ -14,7 +15,7 @@ private:
     const unsigned int FPS = 45;
     static const Time TimePerFrame;
     Map map;
-
+    InfoBar infoBar;
     std::map<string,bool> firstPlayerMoveFlags;
     std::map<string,bool> secondPlayerMoveFlags;
 
@@ -22,9 +23,11 @@ private:
     bool secondPlayerBombFlag = false;
 
     Clock changeBombermanTextureClock;
-    Clock firstPlayerSetBombTime;
-    Clock secondPlayerSetBombTime;
+    Clock firstPlayerSetBombClock;
+    Clock secondPlayerSetBombClock;
     Clock bombClock;
+    Clock firstPlayerDamagedClock;
+    Clock secondPlayerDamagedClock;
 
 public:
 

@@ -26,6 +26,9 @@ public:
     void changeDirection(map<string,bool>&);
 
     void changeTexture();
+    int getHealth();
+    void changeHealth(int);
+
     Bomberman(int,int,int,unsigned int);
     ~Bomberman() override;
 
@@ -33,9 +36,10 @@ private:
     int id;
     int textureIndex = 1;
     int earlierTextureIndex = -1;
+    int health = 3;
     Texture* textureArray;
-
     Direction *directionQueue;
+
     bool containsDirection(Direction d);
     void fillTextureArray();
 

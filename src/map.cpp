@@ -98,8 +98,6 @@ void Map::generateMapElements() {
         freeSpaces.insert(MAP_SIZE*(MAP_SIZE-2-(i-1)) +(MAP_SIZE-2));
     }
 
-
-
     for(int i=0;i<MAP_SIZE*MAP_SIZE;i++){
         if(mapElements[i].getMapElementType() != MapElement::wall){
             Vector2f v((float)((int)(i/MAP_SIZE))*CELL_SIZE,(float)(i%MAP_SIZE) * CELL_SIZE);
@@ -238,11 +236,12 @@ void Map::animateBombs() {
 }
 
 void Map::addExplosions(int index) {
-    cout << "before add: " << endl;
-    for(auto & it : explosionHashMap){
-        cout << it.first << " " << it.second << endl;
-    }
-    cout <<endl;
+//    cout << "before add: " << endl;
+//    for(auto & it : explosionHashMap){
+//        cout << it.first << " " << it.second << endl;
+//    }
+//    cout <<endl;
+    explosionHashMap[index]++;
     for(int i=1;i<=5;i++){
         if(mapElements[index+i].getMapElementType() == MapElement::wall){
             break;
@@ -283,17 +282,18 @@ void Map::addExplosions(int index) {
         }
         explosionHashMap[index-i*(int)MAP_SIZE]++;
     }
-    cout << "after add: " << endl;
-    for(auto & it : explosionHashMap){
-        cout << it.first << " " << it.second << endl;
-    }
+//    cout << "after add: " << endl;
+//    for(auto & it : explosionHashMap){
+//        cout << it.first << " " << it.second << endl;
+//    }
 
 }
 void Map::removeExplosions(int index) {
-    cout << "before remove: " << endl;
-    for(auto & it : explosionHashMap){
-        cout << it.first << " " << it.second << endl;
-    }
+//    cout << "before remove: " << endl;
+//    for(auto & it : explosionHashMap){
+//        cout << it.first << " " << it.second << endl;
+//    }
+    explosionHashMap[index]--;
     for(int i=1;i<=5;i++){
         if(mapElements[index+i].getMapElementType() == MapElement::wall){
             break;
@@ -342,10 +342,10 @@ void Map::removeExplosions(int index) {
         }
         else break;
     }
-    cout << "after remove: " << endl;
-    for(auto & it : explosionHashMap){
-        cout << it.first << " " << it.second << endl;
-    }
+//    cout << "after remove: " << endl;
+//    for(auto & it : explosionHashMap){
+//        cout << it.first << " " << it.second << endl;
+//    }
 }
 
 
@@ -382,6 +382,13 @@ void Map::showExplosion() {
         }
 
     }
+}
+
+bool Map::bombermanDamaged(Bomberman &bomberman) {
+    int centerIndex = (int)((int)((bomberman.getPosition().x+(float)CELL_SIZE/2)/CELL_SIZE)*MAP_SIZE) +
+            (int)((bomberman.getPosition().y+(float)CELL_SIZE/2)/CELL_SIZE);
+    if(mapElements[centerIndex].getMapElementType() == MapElement::explosion) return true;
+    return false;
 }
 
 

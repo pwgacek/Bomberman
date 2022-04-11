@@ -5,7 +5,7 @@ const sf::Time Engine::TimePerFrame = seconds(1.f/60.f);
 
 Engine::Engine(){
 
-    resolution = Vector2f(Map::MAP_SIZE*Map::CELL_SIZE,Map::MAP_SIZE*Map::CELL_SIZE);
+    resolution = Vector2f(Map::MAP_SIZE*Map::CELL_SIZE,(Map::MAP_SIZE+1)*Map::CELL_SIZE);
     window.create(VideoMode((int)resolution.x,(int)resolution.y),
                   "Bomber-Man",Style::Default);
     window.setFramerateLimit(FPS);
@@ -13,6 +13,7 @@ Engine::Engine(){
     firstPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
     secondPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
 
+    infoBar =  InfoBar(Map::MAP_SIZE*Map::CELL_SIZE,Map::CELL_SIZE,0,Map::MAP_SIZE*Map::CELL_SIZE);
 
 }
 
@@ -52,15 +53,27 @@ void Engine::draw(){
     }
 
     // places bomb (max 1 per 2 sec)
-    if(firstPlayerBombFlag && firstPlayerSetBombTime.getElapsedTime().asSeconds() > 2){
-        firstPlayerSetBombTime.restart();
+    if(firstPlayerBombFlag && firstPlayerSetBombClock.getElapsedTime().asSeconds() > 2){
+        firstPlayerSetBombClock.restart();
         map.setBomb(map.getBomberman(1));
     }
 
-    if(secondPlayerBombFlag && secondPlayerSetBombTime.getElapsedTime().asSeconds() > 2){
-        secondPlayerSetBombTime.restart();
+    if(secondPlayerBombFlag && secondPlayerSetBombClock.getElapsedTime().asSeconds() > 2){
+        secondPlayerSetBombClock.restart();
         map.setBomb(map.getBomberman(2));
     }
+    // check if player is damaged
+    if(map.bombermanDamaged(map.getBomberman(1)) && firstPlayerDamagedClock.getElapsedTime().asSeconds()>1){
+        firstPlayerDamagedClock.restart();
+        map.getBomberman(1).changeHealth(-1);
+        cout << "bomberman damaged, remaining health: " << map.getBomberman(1).getHealth() << endl;
+    }
+    if(map.bombermanDamaged(map.getBomberman(2)) && secondPlayerDamagedClock.getElapsedTime().asSeconds()>1){
+        secondPlayerDamagedClock.restart();
+        map.getBomberman(2).changeHealth(-1);
+        cout << "bomberman damaged, remaining health: " << map.getBomberman(2).getHealth() << endl;
+    }
+
 
     for(int i=0;i<Map::MAP_SIZE*Map::MAP_SIZE;i++){
         window.draw(map.getMapElements()[i]) ;
@@ -72,6 +85,11 @@ void Engine::draw(){
     //draw bomberman
     window.draw(map.getBomberman(1));
     window.draw(map.getBomberman(2));
+    //draw info
+    window.draw(infoBar.getFirstPlayerText());
+    window.draw(infoBar.getSecondPlayerText());
+
+
 
     window.display();
 }

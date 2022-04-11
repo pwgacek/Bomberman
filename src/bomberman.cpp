@@ -140,6 +140,16 @@ bool Bomberman::containsDirection(Bomberman::Direction d) {
     return false;
 }
 
+int Bomberman::getHealth(){
+    return health;
+}
+
+void Bomberman::changeHealth(int value) {
+    health += value;
+}
+
+
+
 
 
 
