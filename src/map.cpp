@@ -7,7 +7,8 @@
 #include <iostream>
 #include <random>
 #include <functional>
-
+#include <ctime>
+#include <set>
 
 Map::Map(){
     mapElements = new MapElement[MAP_SIZE*MAP_SIZE];
@@ -32,10 +33,12 @@ Map::~Map() {
 MapElement *Map::getMapElements() const {
     return mapElements;
 }
-bool randomBool() {
-    static auto gen = std::bind(std::uniform_int_distribution<>(0,1),std::default_random_engine());
-    return gen();
+
+int randomBool(){
+
+
 }
+
 
 void Map::generateMapElements() {
 
@@ -78,25 +81,43 @@ void Map::generateMapElements() {
             mapElements[i*MAP_SIZE+j] = Wall(v1,wallTexture,CELL_SIZE);
         }
     }
+
+    //random bool generation
+    time_t seconds;
+    seconds = time(nullptr);
+
+    mt19937 mt(seconds);
+    std::uniform_int_distribution<> distribution(0,4);
+
     //create corridors and chest
+    std::set<int> freeSpaces;
+    for(int i =1;i<=7;i++){
+        freeSpaces.insert((int)MAP_SIZE+i);
+        freeSpaces.insert(i*(int)MAP_SIZE+1);
+        freeSpaces.insert(MAP_SIZE*(MAP_SIZE-2)-(i-1) +(MAP_SIZE-2));
+        freeSpaces.insert(MAP_SIZE*(MAP_SIZE-2-(i-1)) +(MAP_SIZE-2));
+    }
+
+
 
     for(int i=0;i<MAP_SIZE*MAP_SIZE;i++){
         if(mapElements[i].getMapElementType() != MapElement::wall){
             Vector2f v((float)((int)(i/MAP_SIZE))*CELL_SIZE,(float)(i%MAP_SIZE) * CELL_SIZE);
-            if(randomBool() == 0) mapElements[i] = Corridor(v);
+            if(distribution(mt) %2 == 1 || (freeSpaces.count(i)==1)) mapElements[i] = Corridor(v);
             else mapElements[i] = Chest(v,chestTexture,CELL_SIZE);
 
         }
 
     }
-    //create chests
 
-//    Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
-//    mapElements[MAP_SIZE+1] = Corridor(d1);
-//    mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
+
+    Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
+    mapElements[MAP_SIZE+1] = Corridor(d1);
+    mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
 
 
 }
+
 
 Bomberman &Map::getBomberman(int id) {
     return (bombermans[id - 1]);
