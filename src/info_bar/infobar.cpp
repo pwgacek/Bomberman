@@ -24,7 +24,7 @@ Sprite &InfoBar::getFirstPlayerText() {
     return firstPlayerText;
 }
 
-InfoBar::InfoBar() {}
+
 
 Sprite &InfoBar::getSecondPlayerText() {
     return secondPlayerText;

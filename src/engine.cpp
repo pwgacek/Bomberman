@@ -3,7 +3,7 @@
 #include <iostream>
 const sf::Time Engine::TimePerFrame = seconds(1.f/60.f);
 
-Engine::Engine(){
+Engine::Engine(): infoBar(Map::MAP_SIZE*Map::CELL_SIZE,Map::CELL_SIZE,0,Map::MAP_SIZE*Map::CELL_SIZE){
 
     resolution = Vector2f(Map::MAP_SIZE*Map::CELL_SIZE,(Map::MAP_SIZE+1)*Map::CELL_SIZE);
     window.create(VideoMode((int)resolution.x,(int)resolution.y),
@@ -13,7 +13,7 @@ Engine::Engine(){
     firstPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
     secondPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
 
-    infoBar =  InfoBar(Map::MAP_SIZE*Map::CELL_SIZE,Map::CELL_SIZE,0,Map::MAP_SIZE*Map::CELL_SIZE);
+
 
 }
 

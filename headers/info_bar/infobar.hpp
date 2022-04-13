@@ -15,7 +15,6 @@ public:
 
     InfoBar(unsigned int,unsigned int,unsigned int,unsigned int);
 
-    InfoBar();
 
     Sprite& getFirstPlayerText();
     Sprite& getSecondPlayerText();
