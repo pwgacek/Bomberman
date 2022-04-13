@@ -27,7 +27,7 @@ void Engine::run() {
 }
 
 void Engine::draw(){
-    window.clear(Color::Black);
+    window.clear(Color::Green);
 
 
 
