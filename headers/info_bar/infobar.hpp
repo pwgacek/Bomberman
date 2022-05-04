@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 using namespace sf;
 using namespace std;
@@ -18,17 +19,27 @@ public:
 
     Sprite& getFirstPlayerText();
     Sprite& getSecondPlayerText();
+    Sprite& getFirstPlayerHead();
+    Sprite& getSecondPlayerHead();
+    const Text &getFirstPlayerHpText() const;
+    const Text &getSecondPlayerHpText() const;
+
+    void setFirstPlayerHpText(int);
+    void setSecondPlayerHpText(int);
 
 private:
-    unsigned int width;
-    unsigned int height;
-    unsigned int shiftX;
-    unsigned int shiftY;
+
     Sprite firstPlayerText;
     Sprite secondPlayerText;
     Texture firstPlayerTextTexture;
     Texture secondPlayerTextTexture;
 
+    Sprite firstPlayerHead;
+    Sprite secondPlayerHead;
+    Texture firstPlayerHeadTexture;
+    Texture secondPlayerHeadTexture;
+    Text firstPlayerHPText;
+    Text secondPlayerHPText;
 
 };
 

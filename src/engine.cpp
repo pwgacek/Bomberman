@@ -13,6 +13,10 @@ Engine::Engine(): infoBar(Map::MAP_SIZE*Map::CELL_SIZE,Map::CELL_SIZE,0,Map::MAP
     firstPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
     secondPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
 
+    infoBar.setFirstPlayerHpText(map.getBomberman(1).getHealth());
+    infoBar.setSecondPlayerHpText(map.getBomberman(2).getHealth());
+
+
 
 
 }
@@ -27,7 +31,7 @@ void Engine::run() {
 }
 
 void Engine::draw(){
-    window.clear(Color::Green);
+    window.clear(Color::Black);
 
 
 
@@ -66,11 +70,13 @@ void Engine::draw(){
     if(map.bombermanDamaged(map.getBomberman(1)) && firstPlayerDamagedClock.getElapsedTime().asSeconds()>1){
         firstPlayerDamagedClock.restart();
         map.getBomberman(1).changeHealth(-1);
+        infoBar.setFirstPlayerHpText(map.getBomberman(1).getHealth());
         cout << "bomberman damaged, remaining health: " << map.getBomberman(1).getHealth() << endl;
     }
     if(map.bombermanDamaged(map.getBomberman(2)) && secondPlayerDamagedClock.getElapsedTime().asSeconds()>1){
         secondPlayerDamagedClock.restart();
         map.getBomberman(2).changeHealth(-1);
+        infoBar.setSecondPlayerHpText(map.getBomberman(2).getHealth());
         cout << "bomberman damaged, remaining health: " << map.getBomberman(2).getHealth() << endl;
     }
 
@@ -86,8 +92,12 @@ void Engine::draw(){
     window.draw(map.getBomberman(1));
     window.draw(map.getBomberman(2));
     //draw info
-    window.draw(infoBar.getFirstPlayerText());
-    window.draw(infoBar.getSecondPlayerText());
+//    window.draw(infoBar.getFirstPlayerText());
+//    window.draw(infoBar.getSecondPlayerText());
+//    window.draw(infoBar.getFirstPlayerHead());
+//    window.draw(infoBar.getSecondPlayerHead());
+    window.draw(infoBar.getFirstPlayerHpText());
+    window.draw(infoBar.getSecondPlayerHpText());
 
 
 

@@ -34,10 +34,6 @@ MapElement *Map::getMapElements() const {
     return mapElements;
 }
 
-int randomBool(){
-
-
-}
 
 
 void Map::generateMapElements() {
