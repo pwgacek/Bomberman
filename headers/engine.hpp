@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include "map.hpp"
-#include "info_bar/infobar.hpp"
+#include "gui/infobar.hpp"
+#include "gui/gameover.hpp"
 using namespace sf;
 using namespace std;
 
@@ -16,6 +17,7 @@ private:
     static const Time TimePerFrame;
     Map map;
     InfoBar infoBar;
+    GameOver gameOver;
     std::map<string,bool> firstPlayerMoveFlags;
     std::map<string,bool> secondPlayerMoveFlags;
 
@@ -29,11 +31,17 @@ private:
     Clock firstPlayerDamagedClock;
     Clock secondPlayerDamagedClock;
 
+    bool endOfGame = false;
+    Vector2i * sequence;
+    int sequenceIncrementator = 0;
+    int winner;
+
+
+
 public:
 
-
-
     Engine();
+    ~Engine();
     void draw();
     void run();
     void input();

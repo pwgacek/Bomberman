@@ -17,8 +17,7 @@ public:
     InfoBar(unsigned int,unsigned int,unsigned int,unsigned int);
 
 
-    Sprite& getFirstPlayerText();
-    Sprite& getSecondPlayerText();
+
     Sprite& getFirstPlayerHead();
     Sprite& getSecondPlayerHead();
     const Text &getFirstPlayerHpText() const;
@@ -29,17 +28,16 @@ public:
 
 private:
 
-    Sprite firstPlayerText;
-    Sprite secondPlayerText;
-    Texture firstPlayerTextTexture;
-    Texture secondPlayerTextTexture;
-
     Sprite firstPlayerHead;
     Sprite secondPlayerHead;
     Texture firstPlayerHeadTexture;
     Texture secondPlayerHeadTexture;
     Text firstPlayerHPText;
     Text secondPlayerHPText;
+
+    Font arcadeFont;
+
+
 
 };
 

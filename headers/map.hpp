@@ -37,6 +37,9 @@ public:
     bool bombermanDamaged(Bomberman&);
     const std::vector<Bomb> &getBombs() const;
 
+    void generateSequence(Vector2i * sequence);
+    void putOneBlock(Vector2i&);
+
 private:
 
     Bomberman* bombermans;
@@ -53,6 +56,7 @@ private:
     void fillBombTextureArray();
     void addExplosions(int);
     void removeExplosions(int);
+
 
 
 };

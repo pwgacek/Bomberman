@@ -387,6 +387,37 @@ bool Map::bombermanDamaged(Bomberman &bomberman) {
     return false;
 }
 
+void Map::generateSequence(Vector2i * sequence) {
+    int j1=0,j2=MAP_SIZE;
+    int index = 0;
+    while (j1<j2){
+        for(int i=j1;i < j2-1;i++){
+            sequence[index++] = Vector2i(j1,i);
+        }
+        for(int i=j1;i < j2-1;i++){
+            sequence[index++] = Vector2i(i,j2-1);
+        }
+        for(int i=j2-1;i>j1;i--){
+            sequence[index++] = Vector2i(j2-1,i);
+        }
+        for(int i=j2-1;i>j1;i--){
+            sequence[index++] = Vector2i(i,j1);
+        }
+
+        j2-=1;
+        j1+=1;
+
+    }
+    if((int)MAP_SIZE % 2 == 1){
+        sequence[index] = Vector2i(MAP_SIZE/2,MAP_SIZE/2);
+    }
+}
+
+void Map::putOneBlock(Vector2i &v) {
+    Vector2f vector(v.x*CELL_SIZE,v.y*CELL_SIZE);
+    mapElements[((int)v.x*MAP_SIZE)+(int)v.y] = Wall(vector, wallTexture, CELL_SIZE);
+}
+
 
 
 
