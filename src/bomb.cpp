@@ -27,3 +27,11 @@ bool Bomb::exist() const {
     return BOMB_TEXTURES > textureIndex;
 }
 
+void Bomb::setTextureIndex(int index) {
+    Bomb::textureIndex = index;
+}
+
+int Bomb::getTextureIndex() const {
+    return textureIndex;
+}
+

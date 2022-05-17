@@ -15,6 +15,8 @@ using namespace std;
 #include "bomb.hpp"
 #include <map>
 #include <unordered_map>
+#include <set>
+
 class Map {
 public:
 
@@ -45,7 +47,9 @@ private:
     Bomberman* bombermans;
     MapElement* mapElements;
     std::vector<Bomb>bombs;
-    std::unordered_map<int,int> explosionHashMap;
+    std::unordered_map<int,std::vector<int>> explosionHashMap;
+    std::set<int> explosionToRemove;
+
 
     Texture wallTexture;
     Texture chestTexture;
@@ -56,7 +60,7 @@ private:
     void fillBombTextureArray();
     void addExplosions(int);
     void removeExplosions(int);
-
+    void anotherBombExplodes(int index);
 
 
 };

@@ -65,13 +65,13 @@ void Engine::draw(){
             map.showExplosion();
         }
 
-        // places bomb (max 1 per 2 sec)
-        if(firstPlayerBombFlag && firstPlayerSetBombClock.getElapsedTime().asSeconds() > 2){
+        // places bomb (max 1 per  sec)
+        if(firstPlayerBombFlag && firstPlayerSetBombClock.getElapsedTime().asSeconds() > 1){
             firstPlayerSetBombClock.restart();
             map.setBomb(map.getBomberman(1));
         }
 
-        if(secondPlayerBombFlag && secondPlayerSetBombClock.getElapsedTime().asSeconds() > 2){
+        if(secondPlayerBombFlag && secondPlayerSetBombClock.getElapsedTime().asSeconds() > 1){
             secondPlayerSetBombClock.restart();
             map.setBomb(map.getBomberman(2));
         }

@@ -19,10 +19,18 @@ public:
     int changeTexture();
 
 
+
 private:
     Texture* textureArray = nullptr;
 
     int textureIndex;
+public:
+    int getTextureIndex() const;
+
+public:
+    void setTextureIndex(int textureIndex);
+
+private:
     int cycleCounter = 0;
 
 };
