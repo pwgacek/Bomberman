@@ -3,7 +3,7 @@ project(bomberman)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(bomberman src/main.cpp src/engine.cpp headers/engine.hpp src/mapitem.cpp headers/mapitem.hpp src/map_elements/wall.cpp headers/map_elements/wall.hpp src/map.cpp headers/map.hpp src/bomberman.cpp headers/bomberman.hpp src/map_elements/mapelement.cpp headers/map_elements/mapelement.hpp src/map_elements/corridor.cpp headers/map_elements/corridor.hpp src/map_elements/chest.cpp headers/map_elements/chest.hpp src/bomb.cpp headers/bomb.hpp src/map_elements/explosion.cpp headers/map_elements/explosion.hpp src/gui/infobar.cpp headers/gui/infobar.hpp src/gui/gameover.cpp headers/gui/gameover.hpp src/gui/playagainbtn.cpp headers/gui/playagainbtn.hpp)
+add_executable(bomberman src/main.cpp src/engine.cpp headers/engine.hpp src/map_elements/wall.cpp headers/map_elements/wall.hpp src/map.cpp headers/map.hpp src/bomberman.cpp headers/bomberman.hpp src/map_elements/mapelement.cpp headers/map_elements/mapelement.hpp src/map_elements/corridor.cpp headers/map_elements/corridor.hpp src/map_elements/chest.cpp headers/map_elements/chest.hpp src/bomb.cpp headers/bomb.hpp src/map_elements/explosion.cpp headers/map_elements/explosion.hpp src/gui/infobar.cpp headers/gui/infobar.hpp src/gui/gameover.cpp headers/gui/gameover.hpp src/gui/playagainbtn.cpp headers/gui/playagainbtn.hpp src/gui/playerinfo.cpp headers/gui/playerinfo.hpp)
 
 include_directories(headers /usr/include c:/SFML/include)
 

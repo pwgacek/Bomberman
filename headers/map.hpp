@@ -2,8 +2,8 @@
 // Created by pawel on 21.03.2022.
 //
 
-#ifndef PACMAN_MAP_HPP
-#define PACMAN_MAP_HPP
+#ifndef BOMBERMAN_MAP_HPP
+#define BOMBERMAN_MAP_HPP
 
 using namespace std;
 #include "map_elements/mapelement.hpp"
@@ -20,9 +20,9 @@ using namespace std;
 class Map {
 public:
 
-    static const unsigned int CELL_SIZE = 50;
-    static const unsigned int MAP_SIZE = 15;
-    static const unsigned int PLAYERS_NUMBER = 2;
+    static const  int CELL_SIZE = 50;
+    static const  int MAP_SIZE = 15;
+    static const  int PLAYERS_NUMBER = 2;
 
     Map();
     ~Map();
@@ -38,8 +38,8 @@ public:
     bool bombermanDamaged(Bomberman&);
     const std::vector<Bomb> &getBombs() const;
 
-    void generateSequence(Vector2i * sequence);
-    void putOneBlock(Vector2i&);
+    static void generateSequence(Vector2i * sequence);
+    void putOneWall(Vector2i &v);
 
 private:
 
@@ -59,10 +59,10 @@ private:
     void fillBombTextureArray();
     void addExplosions(int);
     void removeExplosions(int);
-    void anotherBombExplodes(int index);
+    void checkIfAnotherBombExplodes(int index);
 
 
 };
 
 
-#endif //PACMAN_MAP_HPP
+#endif //BOMBERMAN_MAP_HPP

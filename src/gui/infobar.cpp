@@ -5,73 +5,44 @@
 #include <iostream>
 #include "gui/infobar.hpp"
 
-InfoBar::InfoBar(unsigned int width, unsigned int height,unsigned int shiftX,unsigned int shiftY){
+InfoBar::InfoBar(unsigned int width, unsigned int height,unsigned int shiftX,unsigned int shiftY):
+firstPlayerInfo("../assets/p1head.png",Vector2f((float)shiftX,(float)shiftY),60,Vector2f(70,shiftY - 10)),
+secondPlayerInfo("../assets/p2head.png",Vector2f((float)width  - 160,(float)shiftY),60,Vector2f((float)width - 90,(float)shiftY - 10)){
 
-    if(!firstPlayerHeadTexture.loadFromFile("../assets/p1head.png")){
-        std::cout << "can't load image" <<std::endl;
-    }
-    if(!secondPlayerHeadTexture.loadFromFile("../assets/p2head.png")){
-        std::cout << "can't load image" <<std::endl;
-    }
-    if (!arcadeFont.loadFromFile("../assets/ARCADECLASSIC.ttf"))
-    {
-        cout << "can't load font" << endl;
-    }
 
-    firstPlayerHead.setTexture(firstPlayerHeadTexture);
-    secondPlayerHead.setTexture(secondPlayerHeadTexture);
-    firstPlayerHead.setPosition((float)shiftX,(float)shiftY);
-    secondPlayerHead.setPosition((float)width - (float)secondPlayerHeadTexture.getSize().x - 100,(float)shiftY);
-    firstPlayerHead.scale((float)60/(float)firstPlayerHeadTexture.getSize().x,(float)60/(float)firstPlayerHeadTexture.getSize().x);
-    secondPlayerHead.scale((float)60/(float)secondPlayerHeadTexture.getSize().x,(float)60/(float)secondPlayerHeadTexture.getSize().x);
+//
+//    firstPlayerHead.setPosition((float)shiftX,(float)shiftY);
+//    secondPlayerHead.setPosition((float)width - (float)secondPlayerHeadTexture.getSize().x - 100,(float)shiftY);
 
-//    firstPlayerText.setFont(arcadeFont);
-//    secondPlayerText.setFont(arcadeFont);
-//    firstPlayerText.setCharacterSize(48);
-//    secondPlayerText.setCharacterSize(48);
+//    firstPlayerHead.scale((float)60/(float)firstPlayerHeadTexture.getSize().x,(float)60/(float)firstPlayerHeadTexture.getSize().x);
+//    secondPlayerHead.scale((float)60/(float)secondPlayerHeadTexture.getSize().x,(float)60/(float)secondPlayerHeadTexture.getSize().x);
+//
+//
+//    firstPlayerHPText.setFont(arcadeFont);
+//    secondPlayerHPText.setFont(arcadeFont);
+//    firstPlayerHPText.setCharacterSize(50);
+//    secondPlayerHPText.setCharacterSize(50);
 
-    firstPlayerHPText.setFont(arcadeFont);
-    secondPlayerHPText.setFont(arcadeFont);
-    firstPlayerHPText.setCharacterSize(50);
-    secondPlayerHPText.setCharacterSize(50);
-
-    firstPlayerHPText.setPosition((float)firstPlayerHeadTexture.getSize().x, (float)shiftY - 10);
-    secondPlayerHPText.setPosition( (float)width - 100,(float)shiftY - 10);
+//    firstPlayerHPText.setPosition((float)firstPlayerHeadTexture.getSize().x, (float)shiftY - 10);
+//    secondPlayerHPText.setPosition( (float)width - 100,(float)shiftY - 10);
 //
 
 }
 
-
-
-Sprite &InfoBar::getFirstPlayerHead() {
-    return firstPlayerHead;
+const PlayerInfo &InfoBar::getFirstPlayerInfo() const {
+    return firstPlayerInfo;
 }
 
-Sprite &InfoBar::getSecondPlayerHead() {
-    return secondPlayerHead;
+const PlayerInfo &InfoBar::getSecondPlayerInfo() const {
+    return secondPlayerInfo;
 }
 
-const Text &InfoBar::getFirstPlayerHpText() const {
-    return firstPlayerHPText;
+void InfoBar::setFirstPlayerText(int hp) {
+    firstPlayerInfo.setText(hp);
 }
 
-const Text &InfoBar::getSecondPlayerHpText() const {
-    return secondPlayerHPText;
+void InfoBar::setSecondPlayerText(int hp) {
+    secondPlayerInfo.setText(hp);
 }
 
-void InfoBar::setFirstPlayerHpText(int hp) {
-    firstPlayerHPText.setString(to_string(hp) + " HP");
-}
 
-void InfoBar::setSecondPlayerHpText(int hp) {
-    secondPlayerHPText.setString(to_string(hp) + " HP");
-}
-
-//const Text &InfoBar::getFirstPlayerText() const {
-//    return firstPlayerText;
-//}
-//
-//const Text &InfoBar::getSecondPlayerText() const {
-//    return secondPlayerText;
-//}
-//

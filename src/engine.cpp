@@ -1,20 +1,18 @@
 #include "engine.hpp"
 #include "map_elements/wall.hpp"
 #include <iostream>
-const sf::Time Engine::TimePerFrame = seconds(1.f/60.f);
+
 
 Engine::Engine(): gameOver(Map::MAP_SIZE*Map::CELL_SIZE,Map::MAP_SIZE*Map::CELL_SIZE),
 infoBar(Map::MAP_SIZE*Map::CELL_SIZE,Map::CELL_SIZE,0,Map::MAP_SIZE*Map::CELL_SIZE){
 
     resolution = Vector2f(Map::MAP_SIZE*Map::CELL_SIZE,(Map::MAP_SIZE+1)*Map::CELL_SIZE);
     window.create(VideoMode((int)resolution.x,(int)resolution.y),
-                  "Bomber-Man",Style::Default);
+                  "Bomber-Man",Style::Titlebar | Style::Close);
     window.setFramerateLimit(FPS);
 
     firstPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
     secondPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
-
-
 
     sequence = new Vector2i[Map::MAP_SIZE*Map::MAP_SIZE];
 
@@ -25,8 +23,8 @@ void Engine::run() {
     while(window.isOpen()){
         Map map;
         map.generateSequence(sequence);
-        infoBar.setFirstPlayerHpText(map.getBomberman(1).getHealth());
-        infoBar.setSecondPlayerHpText(map.getBomberman(2).getHealth());
+        infoBar.setFirstPlayerText(map.getBomberman(1).getHealth());
+        infoBar.setSecondPlayerText(map.getBomberman(2).getHealth());
 
         endOfGame = false;
         sequenceIncrementor = 0;
@@ -94,17 +92,17 @@ void Engine::draw(Map & map){
         if(map.bombermanDamaged(map.getBomberman(1)) && firstPlayerDamagedClock.getElapsedTime().asSeconds()>1){
             firstPlayerDamagedClock.restart();
             map.getBomberman(1).changeHealth(-1);
-            infoBar.setFirstPlayerHpText(map.getBomberman(1).getHealth());
+            infoBar.setFirstPlayerText(map.getBomberman(1).getHealth());
         }
         if(map.bombermanDamaged(map.getBomberman(2)) && secondPlayerDamagedClock.getElapsedTime().asSeconds()>1){
             secondPlayerDamagedClock.restart();
             map.getBomberman(2).changeHealth(-1);
-            infoBar.setSecondPlayerHpText(map.getBomberman(2).getHealth());
+            infoBar.setSecondPlayerText(map.getBomberman(2).getHealth());
         }
     }
     else{
         if(sequenceIncrementor < Map::MAP_SIZE * Map::MAP_SIZE){
-            map.putOneBlock(sequence[sequenceIncrementor++]);
+            map.putOneWall(sequence[sequenceIncrementor++]);
         }
 
 
@@ -134,10 +132,10 @@ void Engine::draw(Map & map){
 
     //draw info
 
-    window.draw(infoBar.getFirstPlayerHead());
-    window.draw(infoBar.getSecondPlayerHead());
-    window.draw(infoBar.getFirstPlayerHpText());
-    window.draw(infoBar.getSecondPlayerHpText());
+    window.draw(infoBar.getFirstPlayerInfo().getSprite());
+    window.draw(infoBar.getSecondPlayerInfo().getSprite());
+    window.draw(infoBar.getFirstPlayerInfo().getText());
+    window.draw(infoBar.getSecondPlayerInfo().getText());
 
 
     window.display();
@@ -167,8 +165,6 @@ void Engine::input(){
                 case Keyboard::V: firstPlayerBombFlag=true;break;
                 case Keyboard::M: secondPlayerBombFlag=true;break;
 
-                case Keyboard::R: restart = true;
-
                 default : break;
             }
         }
@@ -193,14 +189,21 @@ void Engine::input(){
                 default : break;
             }
         }
+        if(endOfGame){
+            if(event.type == Event::MouseButtonPressed){
+                if(event.mouseButton.button == Mouse::Left){
+                    if(gameOver.getPlayAgainBtn().checkClick(Vector2f((float)event.mouseButton.x,(float)event.mouseButton.y))){
+                        restart = true;
+                    }
+                }
 
+            }
+        }
 
 
     }
 
 }
-
-
 
 Engine::~Engine() {
     delete [] sequence;

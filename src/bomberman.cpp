@@ -17,7 +17,6 @@ textureArray{new Texture[BOMBERMAN_SPRITES]}{
 }
 
 Bomberman::~Bomberman(){
-    printf("usuwam bombermana\n");
     delete [] textureArray;
     delete [] directionQueue;
 }
@@ -140,7 +139,7 @@ bool Bomberman::containsDirection(Bomberman::Direction d) {
     return false;
 }
 
-int Bomberman::getHealth(){
+int Bomberman::getHealth() const{
     return health;
 }
 

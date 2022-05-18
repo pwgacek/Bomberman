@@ -2,8 +2,8 @@
 // Created by pawel on 21.03.2022.
 //
 
-#ifndef PACMAN_WALL_HPP
-#define PACMAN_WALL_HPP
+#ifndef BOMBERMAN_WALL_HPP
+#define BOMBERMAN_WALL_HPP
 
 
 #include "mapelement.hpp"
@@ -17,4 +17,4 @@ private:
 };
 
 
-#endif //PACMAN_WALL_HPP
+#endif //BOMBERMAN_WALL_HPP

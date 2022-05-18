@@ -12,16 +12,18 @@ using namespace std;
 using namespace sf;
 class PlayAgainBtn {
 public:
-    bool checkClick(Vector2f);
+    bool checkClick(Vector2f) const;
     PlayAgainBtn(float,float,float);
-
-private:
-    Sprite sprite;
-public:
     const Sprite &getSprite() const;
 
 private:
+    Sprite sprite;
     Texture texture;
+    float size;
+
+
+
+
 };
 
 

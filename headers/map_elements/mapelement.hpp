@@ -13,7 +13,7 @@ using namespace sf;
 class MapElement : public Sprite {
 public:
     enum MapElementType{corridor,wall,chest,explosion};
-    MapElementType getMapElementType();
+    virtual MapElementType getMapElementType();
 
 protected:
     MapElementType mapElementType;

@@ -8,7 +8,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Text.hpp>
-
+#include "playerinfo.hpp"
 using namespace sf;
 using namespace std;
 class InfoBar {
@@ -16,28 +16,16 @@ public:
 
     InfoBar(unsigned int,unsigned int,unsigned int,unsigned int);
 
+    const PlayerInfo &getFirstPlayerInfo() const;
 
+    const PlayerInfo &getSecondPlayerInfo() const;
 
-    Sprite& getFirstPlayerHead();
-    Sprite& getSecondPlayerHead();
-    const Text &getFirstPlayerHpText() const;
-    const Text &getSecondPlayerHpText() const;
-
-    void setFirstPlayerHpText(int);
-    void setSecondPlayerHpText(int);
+    void setFirstPlayerText(int);
+    void setSecondPlayerText(int);
 
 private:
-
-    Sprite firstPlayerHead;
-    Sprite secondPlayerHead;
-    Texture firstPlayerHeadTexture;
-    Texture secondPlayerHeadTexture;
-    Text firstPlayerHPText;
-    Text secondPlayerHPText;
-
-    Font arcadeFont;
-
-
+    PlayerInfo firstPlayerInfo;
+    PlayerInfo secondPlayerInfo;
 
 };
 

@@ -18,19 +18,13 @@ public:
     bool exist() const;
     int changeTexture();
 
+    int getTextureIndex() const;
+    void setTextureIndex(int textureIndex);
 
 
 private:
     Texture* textureArray = nullptr;
-
     int textureIndex;
-public:
-    int getTextureIndex() const;
-
-public:
-    void setTextureIndex(int textureIndex);
-
-private:
     int cycleCounter = 0;
 
 };

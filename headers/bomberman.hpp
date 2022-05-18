@@ -26,7 +26,7 @@ public:
     void changeDirection(map<string,bool>&);
 
     void changeTexture();
-    int getHealth();
+    int getHealth() const;
     void changeHealth(int);
 
     Bomberman(int,int,int,unsigned int);

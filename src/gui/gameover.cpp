@@ -5,7 +5,7 @@
 #include "gui/gameover.hpp"
 #include <iostream>
 
-GameOver::GameOver(int width,int height): playAgainBtn{(float)width / 2 - 100, (float)height / 3 - 100, 100} {
+GameOver::GameOver(int width,int height): playAgainBtn{(float)width / 2 - 75, (float)height / 4 - 100, 150} {
     if (!arcadeFont.loadFromFile("../assets/ARCADECLASSIC.ttf")){
         cout << "can't load font" << endl;
     }
@@ -18,18 +18,18 @@ GameOver::GameOver(int width,int height): playAgainBtn{(float)width / 2 - 100, (
 
     gameOverText.setFont(arcadeFont);
     gameOverText.setCharacterSize(130);
-    gameOverText.setPosition((float)width/2 - 290,(float)height/2 - 200);
+    gameOverText.setPosition((float)width/2 - 290,(float)height/2 - 150);
     gameOverText.setString("GAME OVER");
 
     winnerText.setFont(arcadeFont);
     winnerText.setCharacterSize(100);
-    winnerText.setPosition((float)width/2 - 170,(float)height/2 + 100 );
+    winnerText.setPosition((float)width/2 - 170,(float)height/2 + 150 );
     winnerText.setString("WINNER");
 
     firstPlayerHead.setTexture(firstPlayerHeadTexture);
     secondPlayerHead.setTexture(secondPlayerHeadTexture);
-    firstPlayerHead.setPosition((float)width/2 - 100,(float)(float)height/2 - 40);
-    secondPlayerHead.setPosition((float)width/2 - 100,(float)(float)height/2 - 40);
+    firstPlayerHead.setPosition((float)width/2 - 100,(float)(float)height/2);
+    secondPlayerHead.setPosition((float)width/2 - 100,(float)(float)height/2);
     firstPlayerHead.scale((float)200/(float)firstPlayerHeadTexture.getSize().x,(float)200/(float)firstPlayerHeadTexture.getSize().x);
     secondPlayerHead.scale((float)200/(float)secondPlayerHeadTexture.getSize().x,(float)200/(float)secondPlayerHeadTexture.getSize().x);
 

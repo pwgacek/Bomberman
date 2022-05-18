@@ -1,7 +1,7 @@
 //
 // Created by pawel on 21.03.2022.
 //
-#include <cstdlib>
+
 #include "map.hpp"
 #include "bomberman.hpp"
 #include <iostream>
@@ -22,7 +22,6 @@ Map::Map(){
 }
 
 Map::~Map() {
-    printf("usuwam mape\n");
     delete [] mapElements;
     delete [] bombTextureArray;
     delete [] bombermans;
@@ -88,8 +87,8 @@ void Map::generateMapElements() {
     //create corridors and chest
     std::set<int> freeSpaces;
     for(int i =1;i<=3;i++){
-        freeSpaces.insert((int)MAP_SIZE+i);
-        freeSpaces.insert(i*(int)MAP_SIZE+1);
+        freeSpaces.insert(MAP_SIZE+i);
+        freeSpaces.insert(i*MAP_SIZE+1);
         freeSpaces.insert(MAP_SIZE*(MAP_SIZE-2)-(i-1) +(MAP_SIZE-2));
         freeSpaces.insert(MAP_SIZE*(MAP_SIZE-2-(i-1)) +(MAP_SIZE-2));
     }
@@ -104,12 +103,9 @@ void Map::generateMapElements() {
 
     }
 
-
     Vector2f d1(CELL_SIZE,CELL_SIZE),d2((MAP_SIZE-2)*CELL_SIZE,(MAP_SIZE-2)*CELL_SIZE);
     mapElements[MAP_SIZE+1] = Corridor(d1);
     mapElements[MAP_SIZE*(MAP_SIZE-2) +(MAP_SIZE-2)] = Corridor(d2);
-
-
 }
 
 
@@ -217,13 +213,7 @@ void Map::setBomb(Bomberman &bomberman) {
     }
     if(placeIsEmpty){
         bombs.emplace_back(Bomb(b,bombTextureArray,CELL_SIZE));
-        cout << "empty" << endl;
-        cout << "bomba :" <<bombX << " " << bombY << endl;
     }
-    else{
-        cout << "not empty" << endl;
-    }
-
 }
 
 void Map::animateBombs() {
@@ -248,12 +238,7 @@ void Map::animateBombs() {
 
 
 void Map::addExplosions(int index) {
-//    cout << "adding explosion at: " << index <<endl;
-//    cout << "before add: " << endl;
-//    for(auto & it : explosionHashMap){
-//        cout << it.first << " " << it.second << endl;
-//    }
-//    cout <<endl;
+
     vector<int> positions;
     positions.push_back(index);
     for(int i=1;i<=5;i++){
@@ -265,7 +250,7 @@ void Map::addExplosions(int index) {
             break;
         }
         positions.push_back(index+i);
-        anotherBombExplodes(index+i);
+        checkIfAnotherBombExplodes(index + i);
 
 
     }
@@ -278,7 +263,7 @@ void Map::addExplosions(int index) {
             break;
         }
         positions.push_back(index-i);
-        anotherBombExplodes(index-i);
+        checkIfAnotherBombExplodes(index - i);
     }
     for(int i=1;i<=5;i++){
         if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::wall){
@@ -289,7 +274,7 @@ void Map::addExplosions(int index) {
             break;
         }
         positions.push_back(index+i*(int)MAP_SIZE);
-        anotherBombExplodes(index+i*(int)MAP_SIZE);
+        checkIfAnotherBombExplodes(index + i * (int) MAP_SIZE);
     }
     for(int i=1;i<=5;i++){
         if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::wall){
@@ -300,76 +285,14 @@ void Map::addExplosions(int index) {
             break;
         }
         positions.push_back(index-i*(int)MAP_SIZE);
-        anotherBombExplodes(index-i*(int)MAP_SIZE);
+        checkIfAnotherBombExplodes(index - i * (int) MAP_SIZE);
 
     }
     explosionHashMap[index] = positions;
-//    cout << "after add: " << endl;
-//    for(auto & it : explosionHashMap){
-//        cout << it.first << " " << it.second << endl;
-//    }
 
 }
 void Map::removeExplosions(int index) {
     explosionToRemove.insert(index);
-//    cout << "removing explosion at: " << index << endl;
-//    cout << "before remove: " << endl;
-//    for(auto & it : explosionHashMap){
-//        cout << it.first << " " << it.second << endl;
-//    }
-//    explosionHashMap[index]--;
-//    for(int i=1;i<=5;i++){
-//        if(mapElements[index+i].getMapElementType() == MapElement::wall){
-//            break;
-//        }
-//        if(mapElements[index+i].getMapElementType() == MapElement::chest){
-//            break;
-//        }
-//        if(mapElements[index+i].getMapElementType() == MapElement::explosion){
-//            explosionHashMap[index+i]--;
-//        }
-//        else break;
-//    }
-//    for(int i=1;i<=5;i++){
-//        if(mapElements[index-i].getMapElementType() == MapElement::wall){
-//            break;
-//        }
-//        if(mapElements[index-i].getMapElementType() == MapElement::chest){
-//            break;
-//        }
-//        if(mapElements[index-i].getMapElementType() == MapElement::explosion){
-//            explosionHashMap[index-i]--;
-//        }
-//        else break;
-//    }
-//    for(int i=1;i<=5;i++){
-//        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::wall){
-//            break;
-//        }
-//        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::chest){
-//            break;
-//        }
-//        if(mapElements[index+i*MAP_SIZE].getMapElementType() == MapElement::explosion){
-//            explosionHashMap[index+i*(int)MAP_SIZE]--;
-//        }
-//        else break;
-//    }
-//    for(int i=1;i<=5;i++){
-//        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::wall){
-//            break;
-//        }
-//        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::chest){
-//            break;
-//        }
-//        if(mapElements[index-i*MAP_SIZE].getMapElementType() == MapElement::explosion){
-//            explosionHashMap[index-i*(int)MAP_SIZE]--;
-//        }
-//        else break;
-//    }
-//    cout << "after remove: " << endl;
-//    for(auto & it : explosionHashMap){
-//        cout << it.first << " " << it.second << endl;
-//    }
 }
 
 
@@ -412,15 +335,6 @@ void Map::showExplosion() {
                 mapElements[pos] =  Explosion(v,explosionTexture,CELL_SIZE);
             }
         }
-//        if(it.second > 0 && mapElements[it.first].getMapElementType() != MapElement::explosion){
-//            Vector2f v(mapElements[it.first].getPosition());
-//            mapElements[it.first] =  Explosion(v,explosionTexture,CELL_SIZE);
-//        }
-//        if(it.second == 0 && mapElements[it.first].getMapElementType() == MapElement::explosion){
-//            Vector2f v(mapElements[it.first].getPosition());
-//            mapElements[it.first] =  Corridor(v);
-//            explosionHashMap.erase(it.first);
-//        }
 
     }
 }
@@ -453,42 +367,23 @@ void Map::generateSequence(Vector2i * sequence) {
         j1+=1;
 
     }
-    if((int)MAP_SIZE % 2 == 1){
+    if(MAP_SIZE % 2 == 1){
         sequence[index] = Vector2i(MAP_SIZE/2,MAP_SIZE/2);
     }
 }
 
-void Map::putOneBlock(Vector2i &v) {
-    Vector2f vector(v.x*CELL_SIZE,v.y*CELL_SIZE);
+void Map::putOneWall(Vector2i &v) {
+    Vector2f vector((float)v.x*CELL_SIZE,(float)v.y*CELL_SIZE);
     mapElements[((int)v.x*MAP_SIZE)+(int)v.y] = Wall(vector, wallTexture, CELL_SIZE);
 }
 
-void Map::anotherBombExplodes(int index) {
+void Map::checkIfAnotherBombExplodes(int index) {
     for( Bomb& bomb:bombs){
         if(bomb.getPosition() == mapElements[index].getPosition() && bomb.getTextureIndex() < Bomb::EXPLOSION_FRAME){
             bomb.setTextureIndex(Bomb::EXPLOSION_FRAME);
             addExplosions(index);
-
-        }
-        else{
-            cout << mapElements[index].getPosition().x << " " << mapElements[index].getPosition().y <<endl;
         }
 
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

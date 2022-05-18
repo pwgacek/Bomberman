@@ -1,5 +1,5 @@
-#ifndef PACMAN_ENGINE_HPP
-#define PACMAN_ENGINE_HPP
+#ifndef BOMBERMAN_ENGINE_HPP
+#define BOMBERMAN_ENGINE_HPP
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -14,8 +14,6 @@ private:
     Vector2f resolution;
     RenderWindow window;
     const unsigned int FPS = 45;
-    static const Time TimePerFrame;
-    //Map map;
     InfoBar infoBar;
     GameOver gameOver;
     std::map<string,bool> firstPlayerMoveFlags;
@@ -32,11 +30,11 @@ private:
     Clock secondPlayerDamagedClock;
 
 
-    bool endOfGame;
+    bool endOfGame = false;
     Vector2i * sequence;
-    int sequenceIncrementor;
-    int winner;
-    bool restart;
+    int sequenceIncrementor = 0;
+    int winner = -1;
+    bool restart = false;
 
 
 
@@ -51,4 +49,4 @@ public:
 };
 
 
-#endif //PACMAN_ENGINE_HPP
+#endif //BOMBERMAN_ENGINE_HPP
