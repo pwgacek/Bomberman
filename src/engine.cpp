@@ -14,24 +14,39 @@ infoBar(Map::MAP_SIZE*Map::CELL_SIZE,Map::CELL_SIZE,0,Map::MAP_SIZE*Map::CELL_SI
     firstPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
     secondPlayerMoveFlags = {{"left",false},{"right",false},{"up",false},{"down",false}};
 
-    infoBar.setFirstPlayerHpText(map.getBomberman(1).getHealth());
-    infoBar.setSecondPlayerHpText(map.getBomberman(2).getHealth());
+
 
     sequence = new Vector2i[Map::MAP_SIZE*Map::MAP_SIZE];
-    map.generateSequence(sequence);
 
 }
 
 void Engine::run() {
     // main loop -runs until the window is closed
     while(window.isOpen()){
-        input();
-        draw();
+        Map map;
+        map.generateSequence(sequence);
+        infoBar.setFirstPlayerHpText(map.getBomberman(1).getHealth());
+        infoBar.setSecondPlayerHpText(map.getBomberman(2).getHealth());
+
+        endOfGame = false;
+        sequenceIncrementor = 0;
+        firstPlayerBombFlag = false;
+        secondPlayerBombFlag = false;
+
+        restart = false;
+        while(!restart && window.isOpen()){
+
+            input();
+            draw(map);
+        }
+
     }
+
+
 
 }
 
-void Engine::draw(){
+void Engine::draw(Map & map){
     window.clear(Color::Black);
     if(map.getBomberman(1).getHealth() < 1){
         winner = 2;
@@ -88,8 +103,8 @@ void Engine::draw(){
         }
     }
     else{
-        if(sequenceIncrementator < Map::MAP_SIZE*Map::MAP_SIZE){
-            map.putOneBlock(sequence[sequenceIncrementator++]);
+        if(sequenceIncrementor < Map::MAP_SIZE * Map::MAP_SIZE){
+            map.putOneBlock(sequence[sequenceIncrementor++]);
         }
 
 
@@ -109,10 +124,11 @@ void Engine::draw(){
     }
 
     //draw gameOverText if all block are put
-    if(sequenceIncrementator == Map::MAP_SIZE*Map::MAP_SIZE) {
+    if(endOfGame && sequenceIncrementor == Map::MAP_SIZE * Map::MAP_SIZE) {
         window.draw(gameOver.getGameOverText());
         window.draw(gameOver.getWinnerText());
         window.draw(gameOver.getWinnerHead(winner));
+        window.draw(gameOver.getPlayAgainBtn().getSprite());
     }
 
 
@@ -151,6 +167,8 @@ void Engine::input(){
                 case Keyboard::V: firstPlayerBombFlag=true;break;
                 case Keyboard::M: secondPlayerBombFlag=true;break;
 
+                case Keyboard::R: restart = true;
+
                 default : break;
             }
         }
@@ -180,10 +198,12 @@ void Engine::input(){
 
     }
 
-
 }
+
+
 
 Engine::~Engine() {
     delete [] sequence;
 }
+
 

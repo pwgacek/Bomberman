@@ -8,7 +8,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Text.hpp>
-
+#include "playagainbtn.hpp"
 
 using namespace sf;
 using namespace std;
@@ -29,10 +29,13 @@ private:
     Text winnerText;
     Font arcadeFont;
 
+    PlayAgainBtn playAgainBtn;
+
+
 public:
     const Sprite &getWinnerHead(int) const;
 
-
+    const PlayAgainBtn &getPlayAgainBtn() const;
 
     const Text &getGameOverText() const;
 

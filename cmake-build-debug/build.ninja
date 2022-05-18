@@ -140,6 +140,13 @@ build CMakeFiles/bomberman.dir/src/gui/gameover.cpp.obj: CXX_COMPILER__bomberman
   OBJECT_DIR = CMakeFiles\bomberman.dir
   OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src\gui
 
+build CMakeFiles/bomberman.dir/src/gui/playagainbtn.cpp.obj: CXX_COMPILER__bomberman_Debug C$:/Users/pawel/OneDrive/Pulpit/IV$ semestr/C++/bomberman/src/gui/playagainbtn.cpp || cmake_object_order_depends_target_bomberman
+  DEP_FILE = CMakeFiles\bomberman.dir\src\gui\playagainbtn.cpp.obj.d
+  FLAGS = -g -std=gnu++1z
+  INCLUDES = -I"C:/Users/pawel/OneDrive/Pulpit/IV semestr/C++/bomberman/headers" -I/usr/include -Ic:/SFML/include -IC:/SFML/include
+  OBJECT_DIR = CMakeFiles\bomberman.dir
+  OBJECT_FILE_DIR = CMakeFiles\bomberman.dir\src\gui
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target bomberman
@@ -148,7 +155,7 @@ build CMakeFiles/bomberman.dir/src/gui/gameover.cpp.obj: CXX_COMPILER__bomberman
 #############################################
 # Link the executable bomberman.exe
 
-build bomberman.exe: CXX_EXECUTABLE_LINKER__bomberman_Debug CMakeFiles/bomberman.dir/src/main.cpp.obj CMakeFiles/bomberman.dir/src/engine.cpp.obj CMakeFiles/bomberman.dir/src/mapitem.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/wall.cpp.obj CMakeFiles/bomberman.dir/src/map.cpp.obj CMakeFiles/bomberman.dir/src/bomberman.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/mapelement.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/corridor.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/chest.cpp.obj CMakeFiles/bomberman.dir/src/bomb.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/explosion.cpp.obj CMakeFiles/bomberman.dir/src/gui/infobar.cpp.obj CMakeFiles/bomberman.dir/src/gui/gameover.cpp.obj | C$:/SFML/lib/libsfml-system-d.a C$:/SFML/lib/libsfml-window-d.a C$:/SFML/lib/libsfml-graphics-d.a C$:/SFML/lib/libsfml-network-d.a C$:/SFML/lib/libsfml-audio-d.a
+build bomberman.exe: CXX_EXECUTABLE_LINKER__bomberman_Debug CMakeFiles/bomberman.dir/src/main.cpp.obj CMakeFiles/bomberman.dir/src/engine.cpp.obj CMakeFiles/bomberman.dir/src/mapitem.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/wall.cpp.obj CMakeFiles/bomberman.dir/src/map.cpp.obj CMakeFiles/bomberman.dir/src/bomberman.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/mapelement.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/corridor.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/chest.cpp.obj CMakeFiles/bomberman.dir/src/bomb.cpp.obj CMakeFiles/bomberman.dir/src/map_elements/explosion.cpp.obj CMakeFiles/bomberman.dir/src/gui/infobar.cpp.obj CMakeFiles/bomberman.dir/src/gui/gameover.cpp.obj CMakeFiles/bomberman.dir/src/gui/playagainbtn.cpp.obj | C$:/SFML/lib/libsfml-system-d.a C$:/SFML/lib/libsfml-window-d.a C$:/SFML/lib/libsfml-graphics-d.a C$:/SFML/lib/libsfml-network-d.a C$:/SFML/lib/libsfml-audio-d.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML/lib/libsfml-system-d.a  C:/SFML/lib/libsfml-window-d.a  C:/SFML/lib/libsfml-graphics-d.a  C:/SFML/lib/libsfml-network-d.a  C:/SFML/lib/libsfml-audio-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\bomberman.dir

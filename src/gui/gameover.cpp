@@ -5,7 +5,7 @@
 #include "gui/gameover.hpp"
 #include <iostream>
 
-GameOver::GameOver(int width,int height) {
+GameOver::GameOver(int width,int height): playAgainBtn{(float)width / 2 - 100, (float)height / 3 - 100, 100} {
     if (!arcadeFont.loadFromFile("../assets/ARCADECLASSIC.ttf")){
         cout << "can't load font" << endl;
     }
@@ -33,6 +33,8 @@ GameOver::GameOver(int width,int height) {
     firstPlayerHead.scale((float)200/(float)firstPlayerHeadTexture.getSize().x,(float)200/(float)firstPlayerHeadTexture.getSize().x);
     secondPlayerHead.scale((float)200/(float)secondPlayerHeadTexture.getSize().x,(float)200/(float)secondPlayerHeadTexture.getSize().x);
 
+
+
 }
 
 const Text &GameOver::getGameOverText() const {
@@ -47,4 +49,8 @@ const Text &GameOver::getWinnerText() const {
 
 const Sprite &GameOver::getWinnerHead(int i) const {
     return i == 1 ? firstPlayerHead : secondPlayerHead ;
+}
+
+const PlayAgainBtn &GameOver::getPlayAgainBtn() const {
+    return playAgainBtn;
 }

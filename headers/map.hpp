@@ -20,7 +20,6 @@ using namespace std;
 class Map {
 public:
 
-    static const unsigned int WALL_QUANTITY = 92;
     static const unsigned int CELL_SIZE = 50;
     static const unsigned int MAP_SIZE = 15;
     static const unsigned int PLAYERS_NUMBER = 2;

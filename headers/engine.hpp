@@ -15,7 +15,7 @@ private:
     RenderWindow window;
     const unsigned int FPS = 45;
     static const Time TimePerFrame;
-    Map map;
+    //Map map;
     InfoBar infoBar;
     GameOver gameOver;
     std::map<string,bool> firstPlayerMoveFlags;
@@ -31,10 +31,12 @@ private:
     Clock firstPlayerDamagedClock;
     Clock secondPlayerDamagedClock;
 
-    bool endOfGame = false;
+
+    bool endOfGame;
     Vector2i * sequence;
-    int sequenceIncrementator = 0;
+    int sequenceIncrementor;
     int winner;
+    bool restart;
 
 
 
@@ -42,9 +44,10 @@ public:
 
     Engine();
     ~Engine();
-    void draw();
+    void draw(Map &map);
     void run();
     void input();
+
 };
 
 
